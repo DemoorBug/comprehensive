@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>头部</title>
+	<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+		#mask{
+			background: #000;
+			opacity: 0.75;
+			filter:alpha(opacity=75);
+			height: 1000px;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			z-index: 998	;
+		}
+		#login{
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			width: 400px;
+			height: 400px;
+			background: yellow;
+			margin:-200px 0 0 -200px;
+			z-index: 999;
+		}
+		#close {
+			width: 50px;
+			height: 50px;
+			background: #FFF;
+			line-height: 50px;
+			text-align: center;
+			font-size: 40px;
+			position: absolute;
+			right: 0;
+			cursor: pointer;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var oBtn = document.getElementById('btnLogin');
+			oBtn.onclick = function () {
+
+
+			//获取页面的高度
+			var sHeight = document.body.scrollHeight || document.documentElement.scrollHeight
+			var sWidth = document.body.scrollWidth || document.documentElement.scrollWidth;
+			
+			// var wHeight = document.documentElement.clientHeight;
+			// console.log(wHeight)
+			
+			var oMask = document.createElement('div');
+				oMask.id = "mask";
+				oMask.style.height = sHeight + 'px';
+				oMask.style.width = sWidth + 'px';
+				document.body.appendChild(oMask)
+			var oBsa = document.createElement('div');
+				oBsa.id="login";
+				oBsa.innerHTML = '<div id="close">x</div>';
+				document.body.appendChild(oBsa)
+			var close = document.getElementById('close');
+				oMask.onclick = close.onclick = function () {
+					document.body.removeChild(oMask);
+					document.body.removeChild(oBsa);
+				}
+		}
+		}
+	</script>
+</head>
+<body>
+	<input type="button" value="登录" id="btnLogin">
+	<div style="height: 3000px;"></div>
+
+	<!-- div id="mask"></div>
+	<div id="login">
+		<div id="close">x</div>
+	</div> --><
+</body>
+</html>

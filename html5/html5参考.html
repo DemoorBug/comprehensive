@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Html5总结</title>
+	<style type="text/css">
+	 *{
+		padding: 0;
+		margin: 0;
+		font-size: 24px;
+		font-family: '微软雅黑';
+		background: #F7F7FF;
+	 }
+	 script{
+		display: none;
+	 }
+	 body{
+		padding-left: 20px;
+	 }
+	 i{
+	 	font-style: normal;
+	 	font-weight: bolder;
+	 	color: red;
+	 	background: #eee;
+	 	padding: 0 2px;
+	 }
+	 b {
+	 	font-style: normal;
+	 	font-weight: bolder;
+	 	color: green;
+	 	background: #FFF;
+	 	padding: 0 6px;
+	 }
+	 </style>
+	 <script type="text/javascript">
+	 window.onload = function(){
+	 (function () {
+		var htm = document.getElementsByTagName('body')[0];
+		htm.innerHTML = htm.innerHTML.replace(/\n/g,'<br/>').replace(/ /g,'&nbsp;').replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;').replace(/<strong>/g,'----------------------------------------<br/><br/><strong>');
+	 })()
+}
+	 </script>
+</head>
+<body><strong>置顶</strong>
+clearInterval() setInterval()
+<strong>canvas2</strong>5.03
+<strong>canvas2</strong>5.03
+<i>绘制圆</i>
+arc(x,y,半径,起始弧度,结束弧度,旋转弧度)
+	-x,y:起始位置
+	-弧度与角度的关系：弧度=角度*Math.PI/180
+	-旋转方向：顺时针(false) 逆时针(true)
+	-例子：canvas时钟.html
+<i>绘制其他曲线</i>
+arcTo(x1,y1,x2,y2)
+	-第一组坐标、第二组坐标、半径
+<b>例
+context.beginPath();
+context.moveTo(100,200);
+context.arcTo(100,50,200,150,50);
+context.stroke();
+</b>
+quadraticCurveTo(dx,dy,x1,y1)
+	-贝塞尔曲线：第一组控制点、第二组结束点
+<b>例   虽然例子要不了这么多 但是自己玩玩
+context.beginPath();
+context.moveTo(100,200);
+context.quadraticCurveTo(100,100,200,100);
+context.stroke();
+
+context.beginPath();
+context.moveTo(100,200);
+context.quadraticCurveTo(200,200,200,100);
+context.stroke();
+
+context.beginPath();
+context.moveTo(100,200);
+context.lineTo(200,100);
+context.stroke();
+</b>
+bezierCurveTo(dx1,dy1,dx2,dy2,x1,y1)
+	-贝塞尔曲线：第一控制点、第二控制点、第三组结束坐标
+<b>例
+context.beginPath();
+context.moveTo(100,200);
+context.bezierCurveTo(100,100,200,200,200,100);
+context.stroke();
+</b>
+<strong>canvas 分开写 不然看着木乱</strong>5.03
+<i>边界绘制</i>
+lineJoin:边界点连接点样式
+		-miter(默认)、round(圆角)、bevel(斜角)
+<b>例：
+context.lineJoin = 'round';
+</b>
+lineCap :端点样式  一条直线的两个端点  
+		-butt(默认)、round(圆角)、square(高度多出为宽一半的值)
+<b>例：绘制直线后才可
+context.lineCap = 'round'
+context.lineCap = 'square' 当前宽度一半
+</b>
+<i>绘制路径</i> 类似ps钢笔
+beginPath：开始绘制路径
+<b>例：
+context.beginPath()
+</b>
+closePath：结束绘制路径 这个是闭合啊
+<b>例：
+context.closePath();  这个是闭合啊
+</b>
+moveTo:移动到绘制的新目标点
+<b>例：
+context.moveTo(100,100);
+</b>
+lineTo：新的目标点
+<b>例：
+context.lineTo(100,100);
+</b>
+<i>绘制路径—2</i>
+stroke()：画线，默认黑色
+fill()：填充，默认黑色
+rect():矩形区域
+clearRect()：删除一个画布的矩形区域
+<b>例
+context.clearRect(0,0,oc.width,oc.height);
+</b>
+save()：保存路径
+restore()：恢复路径
+<b>例
+context.save();
+
+	context.fillStyle = 'red';
+	context.beginPath();/*开始*/
+
+	context.rect(20.5,20.5,100,100);
+	context.lineWidth = 1;
+
+	context.fill()
+	
+context.restore()
+
+context.beginPath();/*不会受到影响*/
+
+context.rect(20.5,140.5,100,100);
+context.lineWidth = 1;
+
+context.fill()
+</b>
+
+<i> 直接可以用鼠标进行绘画案例  挺简单
+var oc = document.getElementById('cOne');
+	context = oc.getContext('2d');  /*目前支持2d  还有个webgl：制作３ｄ绘图　兼容很大问题*/
+	oc.onmousedown = function(ev){
+		var ev = ev || window.event
+		context.beginPath();
+		context.moveTo(ev.clientX-oc.offsetLeft,ev.clientY-oc.offsetTop);
+		document.onmousemove = function(ev){
+			console.log(ev.clientX-oc.offsetLeft,ev.clientY-oc.offsetTop)
+			var ev = ev || window.event;
+			context.lineTo(ev.clientX-oc.offsetLeft,ev.clientY-oc.offsetTop);
+			context.stroke();
+		}
+	}
+		document.onmouseup = function(){
+			document.onmousemove = null;
+			document.onmouseUp = null;
+		}	
+</i>
+<b>方块运动
+var oc = document.getElementById('cOne');
+context = oc.getContext('2d');  /*目前支持2d  还有个webgl：制作３ｄ绘图　兼容很大问题*/
+var num = 0;
+context.fillRect(0,0,100,100);
+setInterval(function(){
+	num++;
+	context.clearRect(0,0,oc.width,oc.height);
+	context.fillRect(num,num,100,100);
+},30)
+</b>
+<strong>canvas</strong>5.03
+默认大小  300*150px　
+创建好getContext('2d')对象后就可以来绘图了
+<i>绘制方块 分为了两个方法</i>  和边框 写的先后顺序不同  则先覆盖后
+fillRect(L,T,W,H) 默认的颜色是黑色
+<b>例：
+context.fillRect(50,50,100,100)
+</b>
+strokeRect(L,T,W,H) 带边框的方块
+				-默认一像素黑色边框，显示出来的不一样原因
+<b>例：
+context.strokeRect(50,50,100,100)  这样的话实际为2像素
+context.strokeRect(50.5,50.5,100,100)  这样的话实际为2像素
+</b>
+<i>设置绘图</i>
+fillStyle： 填充颜色(绘制canvas是有顺序的)
+<b>例：可以影响两个 要是只想用到一个什么必须用到save 保存路径 restrore 恢复路径
+context.fillStyle = 'red';
+</b>
+lineWidth： 线绘制，是一个数值
+<b>例：
+context.lineWidth = 10;
+</b>
+strokeStyle： 边线绘制  颜色
+<b>例：
+context.strokeStyle = 'blue';
+</b>
+
+<strong>火狐下无法拖拽</strong>
+ 			必须设置dataTransfer对象的setData方法才可以拖拽除图片外的其他标签
+ <i>dataTranSfer</i>出现在event对象下的
+ setData();设置数据key和value(必须是字符串)
+ getData();获取数据，根据key值，获取对应的value
+ <b>ev.dataTransfer.setData('name','hello')设置键值对</b>
+ <i>ev.dataTransfer.getData('name')获取设置好的name值</i>
+ <b>配合拖拽可以完成一个删除功能</b>
+ <i>dataTransfer对象属性</i>
+ effectAllowed
+ 		-effectAllowed：设置光标样式(none,copy,copyLink,copyMove,link,linkMove,move,all和uninitialized)
+ 		<b>光标样式属性  里面值 各代表不同样式</b>
+ setDragImage() 
+ 		- 三个参数：指定元素，X ，Y
+ 		<i>改变当前拖拽元素</i>
+ files  
+ 		- 获取外部拖拽的文件，返回一个filesList列表
+ 		- filesList下有个type属性，返回文件的类型
+<strong>讲到了拖拽事件 很实用啊  用到了可以复习</strong>5.02
+<i>拖放操作1</i>
+<strong>历史管理</strong>4.22
+onhashchange : 改变hash值来管理
+history ：
+	-服务器下运行
+	-pushState ：三个参数：数据 标题(都没实现) 地址(可选)
+	-popstate事件 ： 读取数据 event.state
+	-注意： 网址是虚假的，需要服务器指定对应页面，不然刷新找不到页面
+<strong>延迟加载JS</strong>4.22
+JS的加载会影响后面的内容加载
+		--defer   延迟到onload前执行  内联无意义
+		--async  异步加载 加载完就触发 有顺序问题
+Labjs  异步加载js库  
+<strong>data 自定义数据</strong>4.22
+dataset
+	- data-name: dataset.name
+	- data-name-first: dataset.nameFirst
+data数据在jquery mobile 在有重要作用
+<i>
+	如果以前想获取一组自定义属性  小心的使用getAttribute
+</i>
+<strong>JSON的新方法</strong>4.22
+parse() : 吧字符串串成json          <i>只能解释json形式的字符串变为js</i>
+	- 字符串中的属性要严格的加上引号
+<b>
+var str = '{ "name" : "hello" }'
+var json = JSON.parse(str);
+alert( json.name )
+</b>     有兼容问题  要去 json官网 下载 json2.js
+
+stringify() : 吧json转化成字符串
+	- 会自动的把双引号加上
+<i>
+var str = '{ name : "hello" }'
+var json = JSON.stringify(str);
+alert( json )
+</i>
+新方法与eval的区别
+<i>妙味搜索  对象引用</i>
+<b>eval</b>原来是将字符串转换为 js语句的
+<strong>html5新的选择器</strong>4.22
+<i>新的选择器</i>
+querySelector            //类似于jq的  $
+querySelectorAll
+getElementsByClassName
+<b>获取class列表属性</b>
+classList         获得class 集合
+	- length : class的长度    <i>这都是上面的方法</i> 
+	- add() : 添加class方法
+	- remove() : 删除class方法
+	- toggle() : 切换class方法
+<strong>html5表单验证反馈</strong>4.21
+validity 对象  ，通过下面的valid可以查看验证是否通过，如果八种验证都通过返回true，一种验证失败返回false
+- oText.addEventListener("invalid",fn1,false);
+- ev.preventDefault()       阻止默认事件
+- valueMissing : 输入值为空时       输入值为空返回true
+- typeMismatch: 控件值与预期类型不匹配       输入类型和要求类型不一致返回true
+- patternMismatch : 输入值不满pattern正则      输入值是否满足正则要求不一致 返回true
+- tooLong : 超过maxLnegth最大限制                  
+- rangeUnderflow : 验证的range最小值
+- stepMismatch: 验证range的当前值是否符合min、max及step的规则
+- customError 不符合自定义验证
+	 	》setCustomValidity() ; 自定义验证
+<i>formnovalidate  直接取消表单验证</i>
+<b>
+	var oText = document.getElementById('name');
+	Otext.addEventListener('invalid',fn1,false);
+	function fn1(){
+		alert(this.validity.valid)  当前事件是否通过
+		 ev.preventDefault()       阻止默认事件
+	}
+</b>
+<i>
+	var oText = document.getElementById('name');
+	Otext.addEventListener('invalid',fn1,false);
+	oText.oninput = function (){
+		if(this.value == '1') {
+			this.setCustomValidity('请不要输入敏感词')
+ 		}
+	}
+	function fn1(){
+		alert(this.validity.valid)  当前事件是否通过
+		 ev.preventDefault()       阻止默认事件
+	}
+</i>
+<strong>html5语义化兼容</strong>4.21
+document.createElement('leo');  
+<i>input 新增表单控件和属性</i>
+type :
+email  :  邮箱
+tel :  移动端会变为一个数字输入键盘
+url :　网址　
+search :  搜索 后面有个×
+range : 数值选择器   ：
+<b>
+属性 step="2" 一次跳两步 min="0" max="10" value当前值
+</b>
+<i>新的输入形控件_2</i>
+number : 只能包含数字的输入框
+color : 颜色选择器
+datetime : 显示完整日期
+datetime-local : 显示完整日期，不含时区
+time : 显示时间，不含时区
+date : 显示日期
+week : 显示周
+month : 显示月
+<b>新的表单特性和函数</b>
+placeholder : 输入框提示信息
+autocomplete : 是否保存用户输入值
+           默认为no,关闭提示选择off
+autofocus : 指定表单获取输入焦点      <i>自动聚焦</i>
+list 和 datalist : 为输入框造一个选择列表
+	- list值为datalist 标签的id
+required : 此项必填 ， 不能为空
+pattern : 正则验证 pattern = "\d{1,5}"
+Formaction 在submit 里定义提交地址    又增加一个提交地址 可以的。。
+maxlength  限制表单输入最大值
+</body>
+</html>

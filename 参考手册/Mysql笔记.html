@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mysql总结</title>
+<style type="text/css">
+*{padding:0;margin:0;font-size:24px;font-family:'微软雅黑';background:#F7F7FF;}
+script{display:none;}
+body{padding-left:20px;} strong {display:inline-block;padding: 5px 130px;margin: 0 auto;text-align: center;background: #02A2BD;color: #FAFFFA;border: 1px dotted #CCC;}
+i{display:inline-block;font-style:normal;font-weight:bolder;color:red;background:#FFF;padding:5px 6px;}
+b{display:inline-block;font-style:normal;font-weight:bolder;color:green;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;}
+a{display:inline-block;font-style:normal;text-decoration:none;font-weight:bolder;color:blue;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;cursor:pointer;}
+ul{list-style:none;text-align:center;}
+ul li{display:inline-block;}
+ul li a{float:left;font-size:16px;color:green}
+.c{position:fixed;right:50px;bottom:20px;height:50px;width:50px;text-align:center;line-height:40px;border:0;}
+u{display:inline-block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid green;background:none;}
+sup { font-size: 14px; background: none }
+em ,em i,em b{   margin:10px; border-radius: 4px;background-color: #FFF;padding: 10px;font-size: 13px; display: block;font-style: normal;}
+</style>
+</head>
+<body>
+<ul></ul>
+<strong>置顶</strong>.
+ob_clean 清除输出图片前的空格
+[client] [mysqld]下添加default-character-set=utf8
+<strong>51</strong>.
+//     print_r(mysql_fetch_row($result));  //速度最快
+//     print_r(mysql_fetch_assoc($result));
+//     echo mysql_field_name($result, 3);
+//     mysql_field_name — 取得结果中指定字段的字段名
+//     echo mysql_num_fields($result);
+//     mysql_num_fields — 取得结果集中字段的数目
+/*
+     * mysql_get_client_info — 取得 MySQL 客户端信息
+     * mysql_get_host_info — 取得 MySQL 主机信息
+     * mysql_get_proto_info — 取得 MySQL 协议信息
+     * mysql_get_server_info — 取得 MySQL 服务器信息
+     */
+     mysql_num_fields($result);//字段数目
+     mysql_num_rows($result);//行数目
+     <i>很多优化语句</i>
+
+<strong>50</strong>.
+require '50Demo.php';   //大概就是将其他PHP建立连接吧(可以调用函数之类的)
+/*     <i>//新增数据</i>
+    $query = 'INSERT INTO user(name,email,point,regdate) VALUE ("王大大","2358@163.com","150",NOW())';
+    mysql_query($query); */
+    
+/*     <i>//删除修改</i>
+    $query = 'UPDATE user SET name="王" WHERE id="4" ';
+    mysql_query($query); */
+    
+/*     <i>//显示数据</i>
+    $query = 'SELECT id,name,email,point,regdate FROM user';
+    $result = mysql_query($query);
+    while ($row = mysql_fetch_array($result)) {
+        echo $row[0],$row[1],$row[2],$row[3].'<br/>';
+    }
+     */
+
+<strong>47，48，49</strong>.
+<i> 这章包含了很多知识点</i>
+mysql_connect — 打开一个到 MySQL 服务器的连接
+mysql_query('SET NAMES UTF8');  //设置字符集
+mysql_select_db — 选择 MySQL 数据库
+mysql_query — 发送一条 MySQL 查询 //就是执行mysql语句
+mysql_fetch_array — 从结果集中取得一行作为关联数组，或数字数组，或二者兼有 
+mysql_free_result — 释放结果内存
+mysql_close — 关闭 MySQL 连接
+<strong>46</strong>.
+   /*
+     *              WHERE   表达式的常用运算符
+     *     MYSQL运算符                                     含义
+     *      =                                                       等于
+     *      <                                                       小于
+     *      >                                                       大于
+     *      <=                                                   小于或等于
+     *      >=                                                   大于或等于
+     *      !=                                                     不等于
+     *      IS NOT NULL                                     具有一个值
+     *      IS NULL                                         没有值
+     *      BETWEEN                                     在范围内
+     *      NOT BETWEEN                             不再范围内
+     *      IN()                                                   指定的范围
+     *      OR                                               两个条件语句之一为真
+     *      AND                                              两个条件语句都为真
+     *      NOT                                              条件语句不为真
+     *      LIKE                                                    筛选
+     */
+
+    /*
+     * SELECT * FROM user WHERE email LIKE '%163.COM';</i>  %代表任意 筛选出163.com结尾的
+     *   SELECT * FROM user WHERE email LIKE 3;  //一个参数代表显示前3条
+     *   <i>SELECT * FROM user WHERE email LIKE 2,3;</i>  //代表从3开始显示3个
+     * SELECT * FROM user OREDR BY regdte DESC;  regdte按照这个进行倒叙
+     * <i>SELECT AVG(point) AS '平均值' FROM user;</i>  算出平均值
+     * 
+     */
+/* <i>SELECT AVG(point) AS '平均值' FROM user;</i> 算出平均值
+ *                                     MYSQL分组函数
+ *                函数                    用法                  描述
+ *                AVG()             AVG(column)        返回列的平均值
+ *                COUNT()       COUNT(column)       统计行数  (NULL统计不到)
+ *                MAX()                                              求列的最大值
+ *                MIN()                                               求列的最小值
+ *                SUM()                                               求列中的和
+ */
+    /*<i>检查这个表的信息</i>
+    *   SHOW TABLE STATUS\G
+    * <I>优化一张表</I>
+    * OPTIMIZE TABLE grade;
+    */
+        <I>为什么表格式为iatin1_swedish_ci</I>
+<strong>45</strong>.
+ /*
+     * 创建一个数据库，表grade内容ID,姓名NAME,邮件email,评分
+     * point,注册日期regdate
+     * <i>UNSIGNED 表示无符号，TINYINT(2) 无符号整数0-99,NOT NULL
+     * 表示不能为空,AUTO_INCREMENT表示从1开始每增加一个字段，累加一位</i>
+     * 
+     */
+    /*
+     * <i>CREATE TABLE USER</i>(  设置主键 自动递增
+     * ID TINYINT(2) UNSIGNED NOT NULL AUTO_INCREMENT,
+     * NAME VARCHAR(3) NOT NULL,
+     * EMAIL VARCHAR(40),
+     * POINT TINYINT(3) UNSIGNED NOT NULL
+     * PRIMARY KEY(ID) 设置主键 让ID唯一不得重复
+     */
+    <i>遗留问题 如何删除字段 添加指定字段</i>
+<strong>44</strong>.
+    /*
+     * Mysql 常用函数
+     *                                  文本函数
+     *         函数                    用法                       描述                                                            大致写法
+     *       CONCAT()       CONCAT(X,Y,...)         创建形如xy的新字符串                                 CONCAT(‘lee’,'ee')   leeee 
+     *       LENGTH()       LENGTH(column)        返回列中储存的值长度
+     *       LEFT()             LEFT(column,x)         从列的值中返回最左边的X个字符
+     *       RIGHT()            RIGHT(column,x)        从列的值中返回最右边的X个字符
+     *       TRIM()             TRIM(column)            从存储的值删除开头和结尾的空格
+     *       UPPER()          UPPER(column)        吧存储的字符串全部大写
+     *       LOWER()         LOWER(column)        吧存储的字符串全部小写      
+     *       SUBSTRING() SUBSTRING(column,start,length)  从column中返回开始start的length个字符(索引从0开始)
+     *       MD5()              MD5(column)              吧存储的字符串用MD5加密
+     *       SHA()              SHA(column)              吧存储的字符串用SHA加密
+     *                                   数字函数
+     *                                  <i>有很多数字函数  这里只列举几个  可以到这章看</i>
+     *                                 四舍五入  最大整数      最小整数  绝对值
+     *                                 <i>日期和时间函数</i>
+     *                                 HOUR() 返回存储日期的小时值  SELECT HOUR(NOW());
+     *                                 
+     *               <i>格式化日期和时间DATE_FORMAT() 和 TIME_FORMT()</i>
+     *       名词                         用法                      示例
+     *       %e                     一月中某一天              1~31
+     *       %d                     一月中的某天，两位    01~31
+     *       %D                     带后缀的天                   1st~31st
+     *       %W                     周日名称                  Sunday~Saturday
+     *                  <I>还有很多 就不一一列举了 格式化的比上面更细腻</I>
+     *                      <i>SELECT DATE_FORMAT(NOW(),'%e')</i>
+     */
+<strong>43</strong>.对应章节43Demo2.PHP
+//   Mysql 数据库操作
+   /*
+    * 显示当前存在的数据库
+    * ><i>SHOW DATABASES;</i>
+    * 2选择你所需要的数据库
+    * ><i>USE guet</i>;
+    * 3查看当前所选择的数据库
+    * ><i>SELECT DATABASE()</i>;
+    * 4查看一张表的所有内容
+    * ><i>SELECT * FROM guest</i>   //可以先通过<i>SHOW TABLES</i>来查看有多少张表
+    * ><i>SHOW TABLES;</i>
+    * 5根据数据库设置中文编码
+    * ><i>SET  NAMES gbk</i>       //set names utf8
+    * 6创建一个数据库
+    * 首先打开 <i>SHOW DATABASES</i>打开所有数据库看
+    * <i>CREATE DATABASE book</i>;
+    * 
+    * 7在数据库里创建一张表
+    * <i>CREATE TABLE uses(
+    * username VARCHAR(20) ,//NOT NULL,这样的话 就不能为空 没有数据就出错
+    * sex CHAR(1) ,  //性别
+    * birth DATETIME);</i>  //注册日期
+    * 
+    *8 显示数据表结构
+    *<i>DESCRIBE uses;</i> 简写形式 DESC USES;  <I>那不早说</I>
+    *  Field       Type              NULL              KEY              Default    Extra
+    *   user        varchar(20)   YES                                     NULL
+    *  字段名      类型           可以为空      主键未设置   默认值没有   额外的没有  no-replat
+    *9 显示表的结构
+    *>  <i>INSERT INTO uses (username,sex,birth) VALUES ('Lee','x','NOW()');</i>
+    *<i>NOW()</i> 是Mysql 自带的时间
+    *仅显示 字段名呢  <i>没看懂</i>
+    *<i>SELECT username FROM uses;</i>
+    *10 筛选指定的数据
+    *<I>SELECT * FROM uses WHERE sex='0';</I>
+    *11 删除数据
+    * <I>DELETE FROM user WHERE sex='0';</I>
+    * 12修改指定数据
+    * <I>UPDATE uses SET sex='男' WHERE USERNAME='LEE';</I>
+    * 13按指定的数据库排序
+    * <I>SELECT * FROM uses ORDER BY birth DESC;</I> //正序
+    * <I>ASC</I>// 正序
+    * 14删除指定的表
+    * <I>DROP TABLE uses;</I>
+    * 15删除指定的数据库
+    * <I>DROP DATABASE book;</I>
+    */
+    /*
+     * SELECT 应该是查看         <I>挑选</I>
+     * SHOW 叫显示    <I>显示</I> 
+     * USE  选择你想要的数据库  <I>使用</I> 
+     * DATABASE()函数   DATABASES命令  <I>数据库</I>
+     * *代表所有字段 SELECT * FROM guest
+     * Empty set (0.00sec) 这是一张空表
+     * 
+     * 
+     */
+<strong>43</strong>.
+    /*
+     *                      日期型
+     *      列类型                 ‘零’值
+     *      DATETIME        '0000-00-00 00:00:00'
+     *      DATE                '0000-00-00'
+     *      TIMESTAMP      000000000000000
+     *      TIME                   '00:00:00'
+     *      YEAR                0000
+     *      
+     *                      字符串型
+     *      值           CHAR(4)           存储需求          VARCHAR(4)      存储要求
+     *      ''                  '     '                4个字节              ''                          1个字节
+     *      'ab'            'ab   '                4个字节             'ab'                       3个字节
+     *      'abcd'        'abcd'               4个字节            'abcd'                   5个字节
+     *      'abcdefgh'  'abcd'              4个字节             'abcd'                   5个字节 
+     *     <i>如果采用CHAR类型：</i> 那么就存放4个字节  空格也算字符
+     *     CHAR 定长类型
+     *     <i>VARCHAR 类型 </i> 会将后面的空格删掉；
+     *     VARCHAR 可变长度类型 自己本身长度+1
+     *     
+     *                      <i>备注型</i>：自己本身+1
+     *  类型                      描述
+     *  TINYTEXT            字符串，最大长度255个字符
+     *  TEXT                    字符串，最大长度65535个字符
+     *  MEDIUMTEXT      字符串，最大长度16777215个字符
+     *  LONGTEXT          字符串，最大长度4294967295个字符
+     *      <i>text 比较常用 用于备注，大文章，帖子，新闻</i>
+
+     *      <i>CHAR 一般用于密码  性别 加密之后永远是32 || 40</i>
+
+     *      <i>VARCHAR 用于标题</i>
+     *      
+     *                  <i>整数型</i>
+     *  类型                  字节    最小值                     最大值
+     *                                   (带符号的/无符号的)   (带符号的/无符号的)  
+     *  TINYINT             1           -128                        127
+     *                                              0                        255
+     *  SMALLINT         2           -32768                    32767
+     *                                              0                        65535
+     *  MEDIUMINT       3          -8388608                 8388607
+     *                                              0                       16777215
+     *    INI                    4          -2147483648           2147483647
+     *                                              0                       4294967295
+     *  BIGINT              8  -9223372036854775808   9223372036854775807
+     *                                              0                       18446744073709551615
+     *                         <i>整数型</i>      
+     *   类型               字节         最小值                     最大值
+     *   FLOAT              4       +-1.175494351E-38      +-3.402823466E+38
+     *   DOUBLE           8     +-2.2250738585072014E-308   +-1.7976931348623157E+308
+     *   DECIMAL         可变         它的取值范围可变
+     */
+<strong>42</strong>.
+    /*
+     * Mysql 常用命令
+     * 1显示当前数据库的版本号和日期
+     * SELECT VERSION();
+     * CURRENT_DATE();
+     * 2通过AS关键字设置字段名
+     * SELECT VERSION() AS version;  // 可设置中文，通过单引号
+     * 3通过SELECT执行返回计算结果
+     * SELECT (20+5)*4 AS '结果';
+     * 4 通过多行实现数据库的使用者和日期
+     * SELECT USER(),NOW();   //一行显示
+     * SELECT USER(); 使用者
+     * SELECT NOW(); 
+     * 5 通过一行显示数据库使用者和日期
+     * SELECT USER() , SELECT NOW();
+     * 6 命令取消
+     * > \c
+     * 7 MySql 窗口退出
+     * > exit;
+     * ctrl+C 
+     * quit
+     * 
+     * MySql 常用数据类型
+     *      整数型：TINYINT, SMALLINT , INT, BIGINT
+     *      浮点型：FLOAT , DOUBLE, DECIMAL(M,D)
+     *      日期型：CHAR, VARCHAR
+     *      备注型：TINYTEXT, TEXT , LONGTEXT
+     *      
+     * 
+     */
+     原文：http://www.2cto.com/database/201108/101151.html
+
+MySQL会出现中文乱码的原因不外乎下列几点：
+1.server本身设定问题，例如还停留在latin1
+2.table的语系设定问题(包含character与collation)
+3.客户端程式(例如php)的连线语系设定问题
+强烈建议使用utf8!!!!
+utf8可以兼容世界上所有字符!!!!
+一、避免创建数据库及表出现中文乱码和查看编码方法
+1、创建数据库的时候：
+
+[sql] view plain copy
+CREATE DATABASE `test`  
+DEFAULT CHARACTER SET 'utf8'  
+COLLATE 'utf8_general_ci';  
+2、建表的时候 
+[sql] view plain copy
+CREATE TABLE `database_user` (  
+`ID` varchar(40) NOT NULL default '',  
+`UserID` varchar(40) NOT NULL default '',  
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;  
+
+这3个设置好了，基本就不会出问题了,即建库和建表时都使用相同的编码格式。
+但是如果你已经建了库和表可以通过以下方式进行查询。
+1.查看默认的编码格式:
+
+[sql] view plain copy
+mysql> show variables like "%char%";  
++--------------------------+---------------+  
+| Variable_name | Value |  
++--------------------------+---------------+  
+| character_set_client | gbk |  
+| character_set_connection | gbk |  
+| character_set_database | utf8 |  
+| character_set_filesystem | binary |  
+| character_set_results | gbk |  
+| character_set_server | utf8 |  
+| character_set_system | utf8 |  
++--------------------------+-------------+  
+
+注：以前2个来确定,可以使用set names utf8,set names gbk设置默认的编码格式;
+执行SET NAMES utf8的效果等同于同时设定如下：
+
+[sql] view plain copy
+SET character_set_client='utf8';  
+SET character_set_connection='utf8';  
+SET character_set_results='utf8';  
+
+
+2.查看test数据库的编码格式:
+
+[sql] view plain copy
+mysql> show create database test;  
++------------+------------------------------------------------------------------------------------------------+  
+| Database | Create Database |  
++------------+------------------------------------------------------------------------------------------------+  
+| test | CREATE DATABASE `test` /*!40100 DEFAULT CHARACTER SET gbk */ |  
++------------+------------------------------------------------------------------------------------------------+  
+
+3.查看yjdb数据表的编码格式:
+[sql] view plain copy
+mysql> show create table yjdb;  
+| yjdb | CREATE TABLE `yjdb` (  
+`sn` int(5) NOT NULL AUTO_INCREMENT,  
+`type` varchar(10) NOT NULL,  
+`brc` varchar(6) NOT NULL,  
+`teller` int(6) NOT NULL,  
+`telname` varchar(10) NOT NULL,  
+`date` int(10) NOT NULL,  
+`count` int(6) NOT NULL,  
+`back` int(10) NOT NULL,  
+PRIMARY KEY (`sn`),  
+UNIQUE KEY `sn` (`sn`),  
+UNIQUE KEY `sn_2` (`sn`)  
+) ENGINE=MyISAM AUTO_INCREMENT=1826 DEFAULT CHARSET=gbk ROW_FORMAT=DYNAMIC |  
+
+
+二、避免导入数据有中文乱码的问题
+1:将数据编码格式保存为utf-8
+设置默认编码为utf8：
+set names utf8;
+设置数据库db_name默认为utf8:
+
+[sql] view plain copy
+ALTER DATABASE `db_name` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;  
+设置表tb_name默认编码为utf8:
+[sql] view plain copy
+ALTER TABLE `tb_name` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;  
+导入：
+[sql] view plain copy
+LOAD DATA LOCAL INFILE 'C:\\utf8.txt' INTO TABLE yjdb;  
+2:将数据编码格式保存为ansi(即GBK或GB2312)
+设置默认编码为gbk：
+set names gbk;
+设置数据库db_name默认编码为gbk:
+[sql] view plain copy
+ALTER DATABASE `db_name` DEFAULT CHARACTER SET gbk COLLATE gbk_chinese_ci;  
+设置表tb_name默认编码为gbk:
+[sql] view plain copy
+ALTER TABLE `tb_name` DEFAULT CHARACTER SET gbk COLLATE gbk_chinese_ci;  
+导入：
+[sql] view plain copy
+LOAD DATA LOCAL INFILE 'C:\\gbk.txt' INTO TABLE yjdb;  
+注：1.UTF8不要导入gbk，gbk不要导入UTF8;
+2.dos下不支持UTF8的显示;
+三、解决网页中乱码的问题
+ 
+将网站编码设为 utf-8,这样可以兼容世界上所有字符。
+　　如果网站已经运作了好久,已有很多旧数据,不能再更改简体中文的设定,那么建议将页面的编码设为 GBK, GBK与GB2312的区别就在于:GBK能比GB2312显示更多的字符,要显示简体码的繁体字,就只能用GBK。
+1.编辑/etc/my.cnf　,在[mysql]段加入default_character_set=utf8;
+2.在编写Connection URL时，加上?useUnicode=true&characterEncoding=utf-8参;
+3.在网页代码中加上一个"set names utf8"或者"set names gbk"的指令，告诉MySQL连线内容都要使用
+utf8或者gbk;
+
+
+
+
+
+
+
+
+
+<script>
+     window.onload = function(){
+     (function () {
+        var htm = document.getElementsByTagName('body')[0];
+        htm.innerHTML = htm.innerHTML.replace(/\n/g,"<br/>").replace(/ /g,'&nbsp;').replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;').replace(/<strong>/g,'----------------------------------------<br/><br/><strong>').replace(/`/g,' ');
+     })();
+     (function() {
+        var htm = document.getElementsByTagName('a');
+        for(var i=0;i<htm.length;i++){
+            htm[i].target = '_blank'
+            htm[i].href = htm[i].innerHTML
+        }
+     })();
+     (function() {
+        var str = document.getElementsByTagName('strong');
+        var mao = document.getElementsByTagName('ul')[0];
+        var links = [];
+        for(var i=0;i<str.length;i++) {
+            var strs = str[i].innerHTML.replace(/&nbsp;/g,'--');
+            console.log(strs)
+            str[i].id = strs;
+            links.push( '<li><a href="#' +strs+ '">'+strs+'</a></li>' );
+        }
+        links.push('<a class="c" href="#"><u></u></a>'  )
+        mao.innerHTML=links/*.reverse()*/.join(' ')
+     })()
+    }   
+</script>
+</body>
+
+</html>

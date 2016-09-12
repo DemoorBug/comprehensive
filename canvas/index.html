@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+</head>
+<body>
+	<canvas id="canvas" width="1024" height="768"></canvas>
+	<div>
+	<script type="text/javascript">
+		window.onload =function () {
+			var canvas = document.getElementById('canvas');
+			var context = canvas.getContext('2d');
+			context.moveTo(100,100); 
+			context.lineTo(700,700);
+			context.lineTo(100,700);
+			context.lineTo(100,100);
+			// context.strokeStyle = "#005588";
+			context.fillStyle = "rgb(2,100,3)"
+
+			context.fill();
+			context.lineWidth = 5;
+			context.strokeStyle = "red";
+			context.stroke()
+		}
+	</script>
+</body>
+</html>

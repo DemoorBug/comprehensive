@@ -1,0 +1,9 @@
+.main {
+  padding: 5px 20px;
+}
+.main .a {
+  max-resolution: 10px 20px;
+}
+.main .a i {
+  background-clip: 1px;
+}

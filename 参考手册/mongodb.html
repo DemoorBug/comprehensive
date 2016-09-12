@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>mongodb</title>
+<style type="text/css">
+*{padding:0;margin:0;font-size:24px;font-family:'微软雅黑';background:#f7f7ff}script{display:none}body{padding-left:20px}strong{display:inline-block;padding:5px 130px;margin:0 auto;text-align:center;background:#02a2bd;color:#fafffa;border:1px dotted #CCC}i{display:inline-block;font-style:normal;font-weight:bolder;color:red;background:#FFF;padding:5px 6px}b{display:inline-block;font-style:normal;font-weight:bolder;color:green;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC}a{display:inline-block;font-style:normal;text-decoration:none;font-weight:bolder;color:blue;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;cursor:pointer}ul{list-style:none;text-align:center}ul li{display:inline-block}ul li a{float:left;font-size:16px;color:green}.c{position:fixed;right:50px;bottom:20px;height:50px;width:50px;text-align:center;line-height:40px;border:0}u{display:inline-block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid green;background:0}sup{font-size:14px;background:0}em{overflow:hidden;height:29px;cursor:pointer}em,em i,em b{margin:10px;border-radius:4px;background-color:#FFF;padding:10px;font-size:13px;display:block;font-style:normal}em i,em b{font-size: 20px; padding: 10px 0;margin: 0}
+</style>
+
+</head>
+<body>
+<ul></ul>
+<strong> mongoDB基本使用</strong>
+<em>
+db.dropDatabase()  删除数据库
+show dbs  查看所有表
+use imooc  切换数据库 并且自己创建
+<i>在mongo中我们将一个表称作一个集合</i>
+db.imooc_collection.insert({x:1})   插入json格式
+show collections  查看表
+db.imooc_collection.find()  查询所有
+db.imooc_collection.find({x:1})  指定查询
+可以使用js语法
+for(i=3;i<100;i++) db.imooc_collection.insert({x:i})
+db.imooc_collection.find().count() 进行计数
+db.imooc_collection.findOne() 
+
+db.imooc_collection.find().skip(3)前三条.limit(2)限制返回2条.sort({x:1}) 使用x排序 1正序 1-倒叙
+db.imooc_collection.updateAt({x:1},{x:999})  更新数据
+db.imooc_collection.updateAt({x:1},{x:999},true)  更改不存在的数据，自动创建
+db.imooc_collection.updateAt({x:1},{$set:{x:999}}) $set操作符为部分操作符
+db.imooc_collection.updateAt({x:1},{$set:{x:999}}，false,true) 更新多条数据 第四个参数
+db.imooc_collection.remove({c:2})  remove 删除所有数据
+db.imooc_collection.drop()  删除表
+show tables
+<i>-------------</i> 
+db.imooc_collection.getIndexes()  查看索引
+创建成千上万条数据，没有索引将不查找
+db.imooc_collection.ensureIndex({x:1})   正项排序      -1 逆向排序   建立索引  单建索引
+
+多建索引与单件索引创建形式相同，区别在于字段的值
+	单建索引：值为单一的值，例如字符串，数字或者日期
+	多建索引：值具有多个记录，例如数组
+<i>-------------</i>
+db.imooc.ensureIndex({time:1},{expireAfterSeconds:30})     30秒后删除 
+db.imooc.insert({time:new Date()})   存储在过期索引字段的值必须是指定的时间类型。说明：必须是ISODate或者ISOData数组，不能使用时间戳，否则不能自动删除
+如果指定了ISODate数组，则按照最小的时间进行删除
+过期索引不能使复合索引
+删除时间不是精确
+删除过程是由后台每运60S跑一次，而且删除也需要一些时间，所以存在误差
+
+
+</em>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+window.onload=function(){(function(){var htm=document.getElementsByTagName("body")[0];htm.innerHTML=htm.innerHTML.replace(/\n/g,"<br/>").replace(/ /g,"&nbsp;").replace(/\t/g,"&nbsp;&nbsp;&nbsp;&nbsp;").replace(/<strong>/g,"----------------------------------------<br/><br/><strong>").replace(/`/g," ")})();(function(){var htm=document.getElementsByTagName("a");for(var i=0;i<htm.length;i++){htm[i].target="_blank";htm[i].href=htm[i].innerHTML}})();(function(){var str=document.getElementsByTagName("strong");var mao=document.getElementsByTagName("ul")[0];var links=[];for(var i=0;i<str.length;i++){var strs=str[i].innerHTML.replace(/&nbsp;/g,"--");str[i].id=strs;links.push('<li><a href="#'+strs+'">'+strs+"</a></li>")}links.push('<a class="c" href="#"><u></u></a>');mao.innerHTML=links.join(" ")})();(function(){var is=document.getElementsByTagName("em");for(var i=0;i<is.length;i++){is[i].onclick=function(){if(this.style.overflow!="visible"){this.style.overflow="visible";this.style.height="auto";this.style.fontSize="20px"}else{this.style.overflow="hidden";this.style.height="29px";this.style.fontSize="13px"}}}})()};
+</script>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>html5</title>
+	<style type="text/css">	
+		body{
+			background: black;
+			    text-align: center;
+		}
+		#cOne {
+			background: white;
+		    text-align: center;
+		    position: absolute;
+		    left: 50%;
+		    top: 50%;
+		    margin: -200px;
+		}
+		span {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="cOne" width="400" height="400">
+		<span>不支持 (看wai似)</span>
+	</canvas>
+	<script type="text/javascript">
+		var oc = document.getElementById('cOne');
+		context = oc.getContext('2d');  /*目前支持2d  还有个webgl：制作３ｄ绘图　兼容很大问题*/
+		
+		setInterval(toDraw,100)
+
+		function toDraw(){
+			var x = 200.5;
+			var y = 200.5;
+			var r = 150;
+
+			context.clearRect(0,0,oc.width,oc.height)
+
+			var oDath = new Date();
+			var oHours = oDath.getHours();
+			var oMin = oDath.getMinutes();
+			var oSen = oDath.getSeconds();
+
+			var oHoursValue = (-90 + oHours*30 + oMin/2) * Math.PI/180;
+			var oMinValue = (-90 + oMin*6) * Math.PI/180;
+			var oSenValue = (-90 + oSen*6) * Math.PI/180;
+
+			context.beginPath();
+			// context.moveTo(x,y);
+			context.lineWidth = 1;
+			for(var i = 0;i<=60; i++)
+				{			
+					context.moveTo(x,y)
+					context.arc(x,y,r,6*i*Math.PI/180,1*(i+1)*Math.PI/180);
+				}	
+					context.closePath();
+					context.stroke();
+
+			context.beginPath();
+			context.fillStyle = 'white';
+			context.arc(x,y,r-10,0*Math.PI/180,360*Math.PI/180);
+
+			context.closePath();
+					context.fill();
+
+			context.beginPath();
+			// context.moveTo(x,y);
+			context.lineWidth = 4;
+			for(var i = 0;i<=60; i++)
+				{			
+					context.moveTo(x,y)
+					context.arc(x,y,r,30*i*Math.PI/180,30*(i+1)*Math.PI/180);
+				}	
+					context.closePath();
+					context.stroke();	
+
+			context.beginPath();
+			context.fillStyle = 'white';
+			context.arc(x,y,r-15,0*Math.PI/180,360*Math.PI/180);
+
+			context.closePath();
+					context.fill();	
+
+			context.beginPath();
+			context.lineWidth = 1;
+			context.moveTo(x,y)
+			context.arc(x,y,r-15,oSenValue,oSenValue,false);
+			context.closePath()
+			context.stroke()
+
+			context.beginPath();
+			context.lineWidth = 4;
+			context.moveTo(x,y)
+			context.arc(x,y,r-60,oHoursValue,oHoursValue,false);
+			context.closePath()
+			context.stroke()
+
+			context.beginPath();
+			context.lineWidth = 4;
+			context.moveTo(x,y)
+			context.arc(x,y,r-40,oMinValue,oMinValue,false);
+			context.closePath()
+			context.stroke()
+
+			
+			}
+		
+	</script>
+</body>
+
+</html>

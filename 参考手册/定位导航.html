@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>WEB APP</title>
+<style type="text/css">
+*{padding:0;margin:0;font-size:24px;font-family:'微软雅黑';background:#f7f7ff}script{display:none}body{padding-left:20px}strong{display:inline-block;padding:5px 130px;margin:0 auto;text-align:center;background:#02a2bd;color:#fafffa;border:1px dotted #CCC}i{display:inline-block;font-style:normal;font-weight:bolder;color:red;background:#FFF;padding:5px 6px}b{display:inline-block;font-style:normal;font-weight:bolder;color:green;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC}a{display:inline-block;font-style:normal;text-decoration:none;font-weight:bolder;color:blue;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;cursor:pointer}ul{list-style:none;text-align:center}ul li{display:inline-block}ul li a{float:left;font-size:16px;color:green}.c{position:fixed;right:50px;bottom:20px;height:50px;width:50px;text-align:center;line-height:40px;border:0}u{display:inline-block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid green;background:0}sup{font-size:14px;background:0}em{overflow:hidden;height:29px;cursor:pointer}em,em i,em b{margin:10px;border-radius:4px;background-color:#FFF;padding:10px;font-size:13px;display:block;font-style:normal}em i,em b{font-size: 20px; padding: 10px 0;margin: 0}
+</style>
+
+</head>
+<body>
+<ul></ul>
+<strong>js编写</strong>
+<strong>兼容调试</strong>
+<i>解决IE6不支持问题</i>
+IE6不支持  fixed  要用到 hack  
+<b>解决IE6下跳变的bug</b>
+* html, * html body {
+        background-image: url(about:blank);
+        background-attachment: fixed;
+    }
+
+*html #menu {   <!-- //IE6下生效 -->
+	position: absolute;
+    top: expression(((e=document.documentElement.scrollTop)?e:document.body.scrollTop)+100+'px');
+}
+
+<strong>scroll</strong>
+scroll:([data],fn):当用户滚动到指定元素时，会发生scroll事件
+<b>scroll事件适用于所有可滚动的元素和window对象(浏览器窗口)</b>
+<i>$(window).scroll(function(){/*...*/});</i>
+<b>scrollTop([val])</b>  获取/设置匹配元素相应滚动条顶部的偏移
+<b>offset();</b> 获取匹配元素的相应偏移。返回的对象包含两个整形属性：top和left，以像素计
+
+
+
+
+<script>
+window.onload=function(){(function(){var htm=document.getElementsByTagName("body")[0];htm.innerHTML=htm.innerHTML.replace(/\n/g,"<br/>").replace(/ /g,"&nbsp;").replace(/\t/g,"&nbsp;&nbsp;&nbsp;&nbsp;").replace(/<strong>/g,"----------------------------------------<br/><br/><strong>").replace(/`/g," ")})();(function(){var htm=document.getElementsByTagName("a");for(var i=0;i<htm.length;i++){htm[i].target="_blank";htm[i].href=htm[i].innerHTML}})();(function(){var str=document.getElementsByTagName("strong");var mao=document.getElementsByTagName("ul")[0];var links=[];for(var i=0;i<str.length;i++){var strs=str[i].innerHTML.replace(/&nbsp;/g,"--");str[i].id=strs;links.push('<li><a href="#'+strs+'">'+strs+"</a></li>")}links.push('<a class="c" href="#"><u></u></a>');mao.innerHTML=links.join(" ")})();(function(){var is=document.getElementsByTagName("em");for(var i=0;i<is.length;i++){is[i].onclick=function(){if(this.style.overflow!="visible"){this.style.overflow="visible";this.style.height="auto";this.style.fontSize="20px"}else{this.style.overflow="hidden";this.style.height="29px";this.style.fontSize="13px"}}}})()};
+</script>
+
+</body>
+</html>

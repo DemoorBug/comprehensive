@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>html5</title>
+	<style type="text/css">	
+		body{
+			background: black;
+			    text-align: center;
+		}
+		#cOne {
+			background: white;
+		    text-align: center;
+		    position: absolute;
+		    left: 50%;
+		    top: 50%;
+		    margin: -200px;
+		}
+		span {
+			color: red;
+		}
+
+	</style>
+</head>
+<body>
+	<canvas id="cOne" width="400" height="400">
+		<span>不支持 (看wai似)</span>
+	</canvas>
+	<script type="text/javascript">
+		var oc = document.getElementById('cOne');
+		var context = oc.getContext('2d');
+
+		context.beginPath();
+		context.moveTo(100,200);
+		context.bezierCurveTo(100,100,200,200,200,100);
+		context.stroke();
+	</script>
+</body>
+
+</html>

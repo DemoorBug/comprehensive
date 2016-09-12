@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>canvas总结</title>
+	<style type="text/css">
+	 *{
+		padding: 0;
+		margin: 0;
+		font-size: 24px;
+		font-family: '微软雅黑';
+		background: #F7F7FF;
+	 }
+	 script{
+		display: none;
+	 }
+	 body{
+		padding-left: 20px;
+	 }
+	 i{
+	 	font-style: normal;
+	 	font-weight: bolder;
+	 	color: red;
+	 	background: #eee;
+	 	padding: 0 2px;
+	 }
+	 b {
+	 	font-style: normal;
+	 	font-weight: bolder;
+	 	color: green;
+	 	background: #FFF;
+	 	padding: 0 6px;
+	 }
+	 </style>
+	 <script type="text/javascript">
+	 window.onload = function(){
+	 (function () {
+		var htm = document.getElementsByTagName('body')[0];
+		htm.innerHTML = htm.innerHTML.replace(/\n/g,'<br/>').replace(/ /g,'&nbsp;').replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;').replace(/<strong>/g,'----------------------------------------<br/><br/><strong>');
+	 })()
+		}
+	 </script>
+</head>
+<body><strong>置顶</strong>
+<strong>这几天看css3去了</strong>4.27
+
+<strong>第一天</strong>4.19	
+canvas 指定大小最好在  width="" height="" 最好在标签能直接加上css指定的实际是canvas显示的大小 
+<b>var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');   
+使用context进行绘制</b>
+可以判断 canvas.getContext('2d');   是否为空  
+<i>
+	context.moveTo(100,100); 画一条直线开始
+	context.lineTo(700,700);   结束
+	context.lineWidth = 5; 线条宽
+	context.strokeStyle = "#005588"
+	context.stroke();
+</i>
+<b> 绘制一个三角并填充
+	context.moveTo(100,100); 
+	context.lineTo(700,700);
+	context.lineTo(100,700);
+	context.lineTo(100,100);
+	// context.strokeStyle = "#005588";
+	context.fillStyle = "rgb(2,100,3)"
+	context.fill();
+</b>
+
+
+
+
+
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

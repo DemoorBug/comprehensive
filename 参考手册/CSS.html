@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>WEB APP</title>
+<style type="text/css">
+*{padding:0;margin:0;font-size:24px;font-family:'微软雅黑';background:#F7F7FF;}
+script{display:none;}
+body{padding-left:20px;} strong {display:inline-block;padding: 5px 130px;margin: 0 auto;text-align: center;background: #02A2BD;color: #FAFFFA;border: 1px dotted #CCC;}
+i{display:inline-block;font-style:normal;font-weight:bolder;color:red;background:#FFF;padding:5px 6px;}
+b{display:inline-block;font-style:normal;font-weight:bolder;color:green;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;}
+a{display:inline-block;font-style:normal;text-decoration:none;font-weight:bolder;color:blue;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;cursor:pointer;}
+ul{list-style:none;text-align:center;}
+ul li{display:inline-block;}
+ul li a{float:left;font-size:16px;color:green}
+.c{position:fixed;right:50px;bottom:20px;height:50px;width:50px;text-align:center;line-height:40px;border:0;}
+u{display:inline-block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid green;background:none;}
+sup { font-size: 14px; background: none }
+em ,em i,em b{   margin:10px; border-radius: 4px;background-color: #FFF;padding: 10px;font-size: 13px; display: block;font-style: normal;}
+</style>
+</head>
+<body>
+<ul></ul>
+<strong>置顶<i>不知道的属性</i></strong>
+letter-spacing
+word-spacing
+vertical-align
+<strong>vertical-align家族基本认识</strong>5.31
+inherit		继承
+1。线类
+	baseline,top,middle,bottom
+2.文本类
+	text-top,text-bottom
+3。上标下标类
+	sub,super
+4.数值百分比类     //IE6/7 不支持小数行高
+	20px,2em,20%
+
+<script>
+	 window.onload = function(){
+	 (function () {
+		var htm = document.getElementsByTagName('body')[0];
+		htm.innerHTML = htm.innerHTML.replace(/\n/g,"<br/>").replace(/ /g,'&nbsp;').replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;').replace(/<strong>/g,'----------------------------------------<br/><br/><strong>').replace(/`/g,' ');
+	 })();
+	 (function() {
+	 	var htm = document.getElementsByTagName('a');
+	 	for(var i=0;i<htm.length;i++){
+	 		htm[i].target = '_blank'
+	 		htm[i].href = htm[i].innerHTML
+	 	}
+	 })();
+	 (function() {
+	 	var str = document.getElementsByTagName('strong');
+	 	var mao = document.getElementsByTagName('ul')[0];
+	 	var links = [];
+	 	for(var i=0;i<str.length;i++) {
+	 		var strs = str[i].innerHTML.replace(/&nbsp;/g,'--');
+	 		console.log(strs)
+	 		str[i].id = strs;
+	 		links.push( '<li><a href="#' +strs+ '">'+strs+'</a></li>' );
+	 	}
+	 	links.push('<a class="c" href="#"><u></u></a>'  )
+	 	mao.innerHTML=links/*.reverse()*/.join(' ')
+	 })()
+	}	
+</script>
+
+</body>
+</html>

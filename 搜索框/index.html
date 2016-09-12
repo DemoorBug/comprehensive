@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>搜索框</title>
+	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+	<style type="text/css">
+	*{padding: 0;margin: 0}
+	a{
+		color: #000;
+		text-decoration: none;
+	}
+	ul{
+		list-style: none;
+	}
+	</style>
+</head>
+<body>
+	<form action="http://cn.bing.com" target="_blank" method="post">
+		<input type="text" id="mis">
+		<input type="submit">
+	</form>
+	<div id="onsd" style="display: none;">
+		<ul>
+			<li>ons</li>
+		</ul>
+	</div>
+	
+</ul>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('#mis').on('keyup',function(){
+			var vals = $(this).val()
+			var s = '<li><a target="_blank" href=>哇靠这么巧你也来团购</a></li>'
+		$.ajax({
+			type: 'GET',
+			url:'http://api.bing.com/qsonhs.aspx?type=cb&cb=a&q='+vals,
+			dataType:'jsonp',
+			timeout: 10000,  
+			cache: false,  
+			beforeSend: function(){
+				$("#onsd ul").html('加载中...');  
+			},  
+			jsonp:'cb',
+			success: function(msg){
+				var ons = msg.AS.Results[0].Suggests;
+				html = '';
+				var eXe = new RegExp(">"+vals+"<",'gi');
+				for(var i=0;i<ons.length;i++){
+					html += '<li><a target="_blank" href='+ ons[i].Url +'>'+ons[i].Txt+'</a></li>';
+				}
+				$('#onsd ul').html(html.replace(eXe,'<strong>'+vals+'</strong>'))
+				$('#onsd').show()
+			},
+			error: function(jqXHR){
+				alert('错误：'+jqXHR.status)
+			},
+		})
+		})
+	})
+
+
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>node-mongodb建站</title>
+<style type="text/css">
+*{padding:0;margin:0;font-size:24px;font-family:'微软雅黑';background:#f7f7ff}script{display:none}body{padding-left:20px}strong{display:inline-block;padding:5px 130px;margin:0 auto;text-align:center;background:#02a2bd;color:#fafffa;border:1px dotted #CCC}i{display:inline-block;font-style:normal;font-weight:bolder;color:red;background:#FFF;padding:5px 6px}b{display:inline-block;font-style:normal;font-weight:bolder;color:green;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC}a{display:inline-block;font-style:normal;text-decoration:none;font-weight:bolder;color:blue;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;cursor:pointer}ul{list-style:none;text-align:center}ul li{display:inline-block}ul li a{float:left;font-size:16px;color:green}.c{position:fixed;right:50px;bottom:20px;height:50px;width:50px;text-align:center;line-height:40px;border:0}u{display:inline-block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid green;background:0}sup{font-size:14px;background:0}em{overflow:hidden;height:29px;cursor:pointer}em,em i,em b{margin:10px;border-radius:4px;background-color:#FFF;padding:10px;font-size:13px;display:block;font-style:normal}em i,em b{font-size: 20px; padding: 10px 0;margin: 0}
+</style>
+
+</head>
+<body>
+<ul></ul>
+<strong>Node+Express快速搭建电影网站</strong>
+后端是用nodejs来驱动的所以需要：
+<em>node.js  在这个基础之上的框架  express可以帮我快速的搭建web应用  jade
+数据库 mongoDb (芒古DB) 以及对 mongoDb快速建模的工具也就是 mongoose (芒古思) Moment.js
+后端的模板引擎 jade (zhei de)
+时间和日期的格式化  Moment.js</em>
+<i>底下的四个模块都是利用npm安装的   底下的？ 不懂那些</i>
+<em>前端
+jquery  类库 以及 bootstrap 样式框架  他们都是网站前端的静态资源
+网站前端的静态资源呢 都存在一个版本的依赖和版本的管理所以这里我需要通过 Bower(鲍尔) 来安装他们  bower 本身也是一个npm模块 需要npm安装</em>
+<i>本地开发环境</i>
+<em>后面会用到less编译 样式的合并 语法的检查 包括前后端单元测试的实现 以及服务的自动重启 这几个任务都是通过GRUNT集成 会放到下一期的课程讲  
+大概一些模块名字 ：
+less cssmin jsHint uglifyJS mocha 不认识 什么鬼</em>
+<strong>实战开始</strong>
+1.需求分析  <em>来看看总共有几个页面 页面都有什么内容 以什么样的交互</em>
+2.项目依赖初始化 <em>对项目所依赖的模块进行一个安装和初始目录的创建</em>
+3.入口文件编码  <em>在后端呢创建一个入口文件，来进行编码</em>
+4.创建视图 <em>创建几个主要页面视图 也就是模板 来跑通前后端的流程 也就是说从浏览器发起一个请求到后端，后端接收到之后呢，再返回一段数据，跑通这个前后端流程以后呢 就可以对页面进行样式的开发 和html Dom结构的填充 同时要为早一些模板的数据 这时候页面基本上都有了 我们现在就开始基于页面里面的内容进行提取抽象同时来设计数据库的模型，然后来开发后端逻辑，到这一步位置前后端的逻辑已经实现，还差一步，就是对前端静态资源版本和后端模块版本进行一个配置文件的生成，然后呢整个网站开发结束</em>
+<i>步骤详情全部在4后</i>
+5.测试前端流程
+6.样式开发，伪造模板数据
+7.设计数据库模型
+8.开发后端逻辑
+9.配置依赖文件，网站开发结束
+<strong>Node入口文件分析</strong>
+<i>项目结构初始化</i>
+- imooc /
+	> npm install express
+	> npm install jade
+	> npm install mongodb
+	> npm install bower -g
+	> bower install bootstrap
+<i>入口文件编码</i>
+<em>var express = require('express');
+var app = express()
+
+app.set('view engine','jade');
+app.set('port',3000)
+
+app.get('/',function(req,res){
+	res.render('index',{title:'imooc'}) 
+})</em>
+<b>这几行代码大概意思是  引入一个express 模块 生成一个web应用的实例 将这个实例的监听端口设置成3000 然后就可以监听来自这个端口过来的请求</b>
+<i>创建视图  </i>
+- imooc / 
+	- node_modules/    猫丢斯  安装一些模块的时候安装到此目录
+	- bower_components/   静态资源 安装到 (鲍尔 康门特) 下
+	- views/           v又特  用来测试的主要视图文件
+		- index.jade
+		- detail.jade
+		- admin.jade
+		- list.jade
+
+	- app.js   入口文件
+
+<i>测试前端流程</i>
+- localhost:3000/
+
+- localhost:3000/movie/1
+
+- localhost:3000/admin/movie
+
+- localhost:3000/admin/list
+<strong>实际编码</strong>
+想创建入口文件  app.js
+npm install express jade moment mongoose
+
+
+
+
+
+
+<strong>数据库模型设计</strong>
+Schema  模式
+Model     模型          >       mongoose  >>       mongodb
+Documents 文档
+
+模式定义 模式里面呢 对数据字段进行定义
+<em>var mongoose = require('mongoose')
+
+var MovieSchema = new mongoose.Schema({
+	doctor: 'String',
+	title: 'String',
+	language: 'String',
+	country: 'String',
+	year: 'Number',
+	summary: 'String',
+})</em>
+
+编译模型  调用mongoose 时对传入schemas 时进行编译然后会生成构造函数
+<em>var mongoose = require('mongoose');
+var MovieSchema = require('../schemas/movie')
+
+var Movie = mongoose.model(
+	'movie',
+	movieSchema
+)
+module.exports = Movie
+</em>
+
+文档实例化   只需要调用这个构造函数 传入一条数据  
+
+<em>var Movie = require('./models/movie')
+
+var movie = new Movie({
+	title : '机械战警',
+	doctor : '何塞·帕迪利亚',
+	year: 2018
+})
+
+movie.save(function(err) {
+	if (err) return handleError(err)
+})</em>
+<b>--</b>
+<em>数据库批量查询
+var Movie = require('./models/movie')
+
+app.get('/',function(req,res){
+	Movie
+		.find({})  <i> 查询全部  </i>       .findOne({_id:id}) <i>单条</i>  
+		.exec(function(err,movies){
+			res render('index',{
+				title:'imooc 首页',
+				movies:movies
+			})
+		})
+}
+
+<i>单条数据删除</i>
+Movie 
+	.remove({_id:id}),function(err,movie) {
+		if(err) {
+			console.log(err)
+		}
+	}
+</em>
+
+<i>开发后端逻辑  目录层次调整</i>
+
+- imooc/
+		- node_modules/
+		- bower_components/
+		- views/
+				- *.jade
+		- models/
+				- movie.js
+		- schemas/
+				- movie.js
+		app.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+window.onload=function(){(function(){var htm=document.getElementsByTagName("body")[0];htm.innerHTML=htm.innerHTML.replace(/\n/g,"<br/>").replace(/ /g,"&nbsp;").replace(/\t/g,"&nbsp;&nbsp;&nbsp;&nbsp;").replace(/<strong>/g,"----------------------------------------<br/><br/><strong>").replace(/`/g," ")})();(function(){var htm=document.getElementsByTagName("a");for(var i=0;i<htm.length;i++){htm[i].target="_blank";htm[i].href=htm[i].innerHTML}})();(function(){var str=document.getElementsByTagName("strong");var mao=document.getElementsByTagName("ul")[0];var links=[];for(var i=0;i<str.length;i++){var strs=str[i].innerHTML.replace(/&nbsp;/g,"--");str[i].id=strs;links.push('<li><a href="#'+strs+'">'+strs+"</a></li>")}links.push('<a class="c" href="#"><u></u></a>');mao.innerHTML=links.join(" ")})();(function(){var is=document.getElementsByTagName("em");for(var i=0;i<is.length;i++){is[i].onclick=function(){if(this.style.overflow!="visible"){this.style.overflow="visible";this.style.height="auto";this.style.fontSize="20px"}else{this.style.overflow="hidden";this.style.height="29px";this.style.fontSize="13px"}}}})()};
+</script>
+
+</body>
+</html>

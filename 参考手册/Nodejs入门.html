@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Node入门</title>
+<style type="text/css">
+*{padding:0;margin:0;font-size:24px;font-family:'微软雅黑';background:#f7f7ff}script{display:none}body{padding-left:20px}strong{display:inline-block;padding:5px 130px;margin:0 auto;text-align:center;background:#02a2bd;color:#fafffa;border:1px dotted #CCC}i{display:inline-block;font-style:normal;font-weight:bolder;color:red;background:#FFF;padding:5px 6px}b{display:inline-block;font-style:normal;font-weight:bolder;color:green;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC}a{display:inline-block;font-style:normal;text-decoration:none;font-weight:bolder;color:blue;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;cursor:pointer}ul{list-style:none;text-align:center}ul li{display:inline-block}ul li a{float:left;font-size:16px;color:green}.c{position:fixed;right:50px;bottom:20px;height:50px;width:50px;text-align:center;line-height:40px;border:0}u{display:inline-block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid green;background:0}sup{font-size:14px;background:0}em{overflow:hidden;height:29px;cursor:pointer}em,em i,em b{margin:10px;border-radius:4px;background-color:#FFF;padding:10px;font-size:13px;display:block;font-style:normal}em i,em b{font-size: 20px; padding: 10px 0;margin: 0}
+</style>
+
+</head>
+<body>
+<ul></ul>
+<strong>置顶</strong>
+<em>这个链接呢 是node学习的根基 没有它  就没有我 哈哈</em>
+<a>http://www.nodebeginner.org/index-zh-cn.html</a>
+<strong>处理POST请求</strong>
+<i>这里的特定的事件有data事件（表示新的小数据块到达了）以及end事件（表示所有的数据都已经接收完毕）。</i>
+<em>我们需要告诉Node.js当这些事件触发的时候，回调哪些函数。怎么告诉呢？ 我们通过在request对象上注册监听器（listener） 来实现。这里的request对象是每次接收到HTTP请求时候，都会把该对象传递给onRequest回调函数。
+request.addListener("data", function(chunk) {
+  // called when a new chunk of data was received
+});
+
+request.addListener("end", function() {
+  // called when all chunks of data have been received
+});</em>
+<strong>以非阻塞操作进行请求响应</strong>
+
+<strong>堵塞与非堵塞</strong>
+<i>上述代码中，我们引入了一个新的Node.js模块，child_process。之所以用它，是为了实现一个既简单又实用的非阻塞操作：exec()。</i>
+<em>exec()做了什么呢？它从Node.js来执行一个shell命令。在上述例子中，我们用它来获取当前目录下所有的文件（“ls -lah”）,然后，当/startURL请求的时候将文件信息输出到浏览器中。
+
+上述代码是非常直观的： 创建了一个新的变量content（初始值为“empty”），执行“ls -lah”命令，将结果赋值给content，最后将content返回。</em>
+<strong>路由给真正的请求处理程序</strong>
+<em>路由，顾名思义，是指我们要针对不同的URL有不同的处理方式。例如处理/start的“业务逻辑”就应该和处理/upload的不同。</em>
+<i>我们暂时把作为路由目标的函数称为请求处理程序。</i>
+<em>应用程序需要新的部件，因此加入新的模块 -- 已经无需为此感到新奇了。我们来创建一个叫做requestHandlers的模块，并对于每一个请求处理程序，添加一个占位用函数，随后将这些函数作为模块的方法导出：
+function start() {
+  console.log("Request handler 'start' was called.");
+}
+
+function upload() {
+  console.log("Request handler 'upload' was called.");
+}
+
+exports.start = start;
+exports.upload = upload;
+这样我们就可以把请求处理程序和路由模块连接起来，让路由“有路可寻”。</em>
+<i>不过结果有点令人失望，JavaScript没提供关联数组 -- 也可以说它提供了？事实上，在JavaScript中，真正能提供此类功能的是它的对象。</i>
+<em>在C++或C#中，当我们谈到对象，指的是类或者结构体的实例。对象根据他们实例化的模板（就是所谓的类），会拥有不同的属性和方法。但在JavaScript里对象不是这个概念。在JavaScript中，对象就是一个键/值对的集合 -- 你可以把JavaScript的对象想象成一个键为字符串类型的字典。
+但如果JavaScript的对象仅仅是键/值对的集合，它又怎么会拥有方法呢？好吧，这里的值可以是字符串、数字或者……函数！</em>
+
+<strong>行为驱动执行</strong>
+<i>函数式编程</i>
+<strong>路由模块</strong>
+	我们需要的所有数据都会包含在request对象中，该对象作为onRequest()回调函数的第一个参数传递。但是为了解析这些数据，我们需要额外的Node.JS模块，它们分别是url和querystring模块。
+<em>
+                               url.parse(string).query
+                                           |
+           url.parse(string).pathname      |
+                       |                   |
+                       |                   |
+                     ------ -------------------
+http://localhost:8888/start?foo=bar&hello=world
+                                ---       -----
+                                 |          |
+                                 |          |
+              querystring(string)["foo"]    |
+                                            |
+                         querystring(string)["hello"]
+当然我们也可以用querystring模块来解析POST请求体中的参数，稍后会有演示。
+</em>
+<strong>服务端的模块放在哪里</strong>
+<i>exports可以导出函数</i>
+
+<strong>服务器是如何请求的</strong>
+<em>当我们的回调启动，我们的onRequest()函数被触发的时候，有两个参数被传入：request和response，他们都是对象，你可以使用他们的方法来处理http请求的细节(比如向发出请求的浏览器发回一些东西)</em>
+<em><b>今天先到这里。。明天贼尴尬。。居然没去成。。平常上班你怎么那么准时，到了这种时候却起不来，啊啊啊。。我都不信啊，我也是有毒。。居然没定闹钟。。额 。老天爷。你为什么要这样。。好吧 。。今天还看了看东西。给自己点赞+1</b> 2016/7/4</em>
+<b>开始</b>
+<em>所以我们的代码就是：收到请求，使用response.writeHead()函数发送一个状态200和HTTP头的内容类型(content-type),使用response.write()函数在HTTP相应主体中发送文本"hello World",最后我们调用response.end()完成响应</em>
+<i>目前来说，我们对请求的细节并不在意，所以我们没有使用request对象</i>
+
+<strong>基于事件驱动的回调</strong>
+为什么我们要用这种方式呢(上一章节)
+<b>这个问题不好回答，不过这是nodejs原生的工作方式。他是事件驱动的，这也是他为什么这么快的原因</b>
+<i>作者的理解，我自己也理解写下</i>
+<em>当我们使用http.createServer方法的同时，我们当然不只是想要一个侦听某个端口的服务器，我们还要它在服务器收到一个http请求的时候做点什么。</em>
+问题来了，这是异步的：请求任何时候都可能到达，但是我们服务器却跑在一个单进程中。
+<em>php的时候可以一点都不用担心，任何时候当有请求进入的时候，网页服务器(通过apache)就为这一请求新建一个进程，并且开始从头到尾执行相应的PHP脚步</em>
+那么在nodejs程序中，当一个新的请求到达8888端口的时候，我们怎么控制流程呢
+<em>我们不知道这件事情什么时候发生，但是我们现在有一个处理请求的地方：他就是我们传递过去的那个函数。至于他是被预先定义的函数还是匿名函数，就无关紧要了。这个就是传说中的<i>回调</i>。我们给某个方法传递一个函数，这个方法在有相应事件发生时调用这个函数来进行回调</em>
+让我们再来琢磨琢磨这个新概念。我们怎么证明，在创建完服务器之后，即使没有HTTP请求进来、我们的回调函数也没有被调用的情况下，我们的代码还继续有效呢？我们试试这个：
+<em>var http = require("http");
+
+function onRequest(request, response) {
+  console.log("Request received.");
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.write("Hello World");
+  response.end();
+}
+
+http.createServer(onRequest).listen(8888);
+
+console.log("Server has started.");</em>
+<b>执行这串代码后  第一次回出现 Server has started.
+当访问这个页面时 就会在命令行输出 Request received. 这就是事件回调</b>
+<i>这就是事件驱动的异步服务器端JavaScript和它的回调啦！</i>
+<em><i>（请注意，当我们在服务器访问网页时，我们的服务器可能会输出两次“Request received.”。那是因为大部分服务器都会在你访问 http://localhost:8888 /时尝试读取 http://localhost:8888/favicon.ico ) </i></em>
+<strong>创建server.js文件</strong>
+<em>var http = require("http");
+
+http.createServer(function(request, response) {
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.write("Hello World");
+  response.end();
+}).listen(8888);
+</em>
+<b>http://localhost:8888/，</b>
+<i>分析HTTP服务器</i>
+第一行是nodejs 自带的一个http模块  将其赋值给 http变量
+<b>接下来调用http模块提供的函数: createServer 。这个函数返回一个对象，这个对象有一个叫做listen的方法，这个方法有一个数值参数，指定http服务器监听的端口号</b>
+我们本来可以用
+<em>var http = require("http");
+
+var server = http.createServer();
+server.listen(8888);</em>
+这样的代码启动服务器
+<b>他的第一个参数是传递一个函数啊 怪不得</b>
+<em>function say(word) {
+  console.log(word);
+}
+
+function execute(someFunction, value) {
+  someFunction(value);
+}
+
+execute(say, "Hello");
+来个例子吧   挺叼的哈</em>
+我们不一定要绕这个先定义，在传递的圈子。
+<em>function execute(someFunction, value) {
+  someFunction(value);
+}
+
+execute(function(word){ console.log(word) }, "Hello");
+作者意思是我们还是得遵循渐进么，先接受一点，在js中，一个函数可以作为另一个函数接收一个参数，我们可以先定义一个函数，然后传递，也可以在传递参数的地方直接定义函数。</em>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+window.onload=function(){(function(){var htm=document.getElementsByTagName("body")[0];htm.innerHTML=htm.innerHTML.replace(/\n/g,"<br/>").replace(/ /g,"&nbsp;").replace(/\t/g,"&nbsp;&nbsp;&nbsp;&nbsp;").replace(/<strong>/g,"----------------------------------------<br/><br/><strong>").replace(/`/g," ")})();(function(){var htm=document.getElementsByTagName("a");for(var i=0;i<htm.length;i++){htm[i].target="_blank";htm[i].href=htm[i].innerHTML}})();(function(){var str=document.getElementsByTagName("strong");var mao=document.getElementsByTagName("ul")[0];var links=[];for(var i=0;i<str.length;i++){var strs=str[i].innerHTML.replace(/&nbsp;/g,"--");str[i].id=strs;links.push('<li><a href="#'+strs+'">'+strs+"</a></li>")}links.push('<a class="c" href="#"><u></u></a>');mao.innerHTML=links.join(" ")})();(function(){var is=document.getElementsByTagName("em");for(var i=0;i<is.length;i++){is[i].onclick=function(){if(this.style.overflow!="visible"){this.style.overflow="visible";this.style.height="auto";this.style.fontSize="20px"}else{this.style.overflow="hidden";this.style.height="29px";this.style.fontSize="13px"}}}})()};
+</script>
+
+</body>
+</html>

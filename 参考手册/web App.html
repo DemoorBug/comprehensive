@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>WEB APP</title>
+<style type="text/css">
+*{padding:0;margin:0;font-size:24px;font-family:'微软雅黑';background:#f7f7ff}script{display:none}body{padding-left:20px}strong{display:inline-block;padding:5px 130px;margin:0 auto;text-align:center;background:#02a2bd;color:#fafffa;border:1px dotted #CCC}i{display:inline-block;font-style:normal;font-weight:bolder;color:red;background:#FFF;padding:5px 6px}b{display:inline-block;font-style:normal;font-weight:bolder;color:green;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC}a{display:inline-block;font-style:normal;text-decoration:none;font-weight:bolder;color:blue;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;cursor:pointer}ul{list-style:none;text-align:center}ul li{display:inline-block}ul li a{float:left;font-size:16px;color:green}.c{position:fixed;right:50px;bottom:20px;height:50px;width:50px;text-align:center;line-height:40px;border:0}u{display:inline-block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid green;background:0}sup{font-size:14px;background:0}em{overflow:hidden;height:29px;cursor:pointer}em,em i,em b{margin:10px;border-radius:4px;background-color:#FFF;padding:10px;font-size:13px;display:block;font-style:normal}em i,em b{font-size: 20px; padding: 10px 0;margin: 0}
+</style>
+<script type="text/javascript">
+	console.log((22.70+10.60+9.90+6.50+12.48+18.60-3.90+15.50+9.90+11.05+13.80+12.91+12.00+9.90+6.90)/3)
+</script>
+</head>
+<body>
+<ul></ul>
+<strong>Touch基础事件</strong>5.30
+touchstart:手指触摸屏幕触发(已经有手指放屏幕上不会触发)
+touchmove:手指在屏幕滑动,连续触发
+touchend:手指离开屏幕时触发
+touchcancel:系统取消touch时候触发(不常用 )
+<b>android的4.4,4.0的bug：支触发touchstart，和一次的touchmove不触发</b>
+<b>加入event.preventDefault</b>
+<i>除常见的事件属性外，触摸事件包含专有的触摸属性</i>
+touches:跟踪触摸操作的touch对象数组
+targetTouches:特定事件目标的touch对象数组
+changaoTouches:上次触摸改变的touch对象数组
+<i>每个touch对象包含属性:</i>
+clientX:触摸目标在视口中的x坐标
+clientY:触摸目标在视口的y坐标
+identifier:标识触摸的唯一ID。
+pageX:触摸目标在页面中的x坐标(包含滚动)
+pageY:触摸目标在页面中的y坐标(包含滚动)
+screenX:触摸目标在屏幕中的x坐标
+screenY:触摸目标在屏幕中的y坐标
+target:触摸的DOM节点目标。
+<strong>移动框架库</strong>5.25
+<i>Tab自定义事件</i>
+<b>Fastclick库</b>
+zepto.js
+<b>tab点透bug</b>
+<strong>viewport 视图</strong>5.20
+<b>980px(ios)</b>
+<b>< meta name="viewport" content="name=value,name=value></b>
+width: 设置布局viewport的特定值('device-width')
+initial-scale: 设置页面的初始缩放 1
+minimum-sacle: 最小缩放
+maximum-scale: 最大缩放
+user-scalable: 用户能否缩放
+<b>垂直居中  CSS3</b>
+.myoff-wrapper {
+	position:absolute;
+	top:50%;
+	left:50%;
+	z-index:3;
+	-webkit-transform:translate(-50%,-50%);
+	border-radius:6px;
+	background:#FFF
+}
+<strong>基本知识-像素</strong>5.19
+<i>移动开发像素知识</i>
+<b>px: css pixels 逻辑像素，浏览器使用的抽象单位</b>     1px  == 1像素
+<b>dp,pt: device independent pixels 设备无关像素</b>     1dp  == 4/1像素  一个像素就会有4个物理像素(dp)渲染
+<b>dpr: devicePixelRatio 设备像素缩放比</b>
+<b>计算公式：1px = (dpr)<sup>2</sup> * dp</b>
+<i>iphone5是320px*568px? -> 因为 dpr = 2</i>
+平面上：1px = (2)<sup>2</sup> * dp         
+纬度上：1px = 2 * dp
+因此换算公式
+640dp*1136dp == 320px*568px
+<b>DPI:打印机每英寸可以喷的墨汁点(印刷行业)</b>
+<b>PPI:屏幕每英寸的像素数量，既单位英寸内的像素密度</b>
+目前。在计算机显示设备参数描述上，二者意思表达的是一样的。
+
+计算公式： 以iPhone5为例子
+ppi= √ (1136<sup>2</sup> * 640<sup>2</sup>) /4 = 326ppi (视网膜Retina屏)
+<i>PPI越高，像素数越高，图像越清晰</i>
+当可视度越低(小)，系统默认设置缩放越大
+				ldpi			mdpi			hdpi			xhdpi
+ppi             120             160 			240				320
+默认缩放比		0.75   			1.0				1.5 			2.0
+<b>1px = dpr<sup>2</sup> * dp</b>
+<script>
+	 window.onload = function(){
+	 (function () {
+		var htm = document.getElementsByTagName('body')[0];
+		htm.innerHTML = htm.innerHTML.replace(/\n/g,"<br/>").replace(/ /g,'&nbsp;').replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;').replace(/<strong>/g,'----------------------------------------<br/><br/><strong>').replace(/`/g,' ');
+	 })();
+	 (function() {
+	 	var htm = document.getElementsByTagName('a');
+	 	for(var i=0;i<htm.length;i++){
+	 		htm[i].target = '_blank'
+	 		htm[i].href = htm[i].innerHTML
+	 	}
+	 })();
+	 (function() {
+	 	var str = document.getElementsByTagName('strong');
+	 	var mao = document.getElementsByTagName('ul')[0];
+	 	var links = [];
+	 	for(var i=0;i<str.length;i++) {
+	 		var strs = str[i].innerHTML.replace(/&nbsp;/g,'--');
+	 		console.log(strs)
+	 		str[i].id = strs;
+	 		links.push( '<li><a href="#' +strs+ '">'+strs+'</a></li>' );
+	 	}
+	 	links.push('<a class="c" href="#"><u></u></a>'  )
+	 	mao.innerHTML=links/*.reverse()*/.join(' ')
+	 })()
+	}	
+</script>
+
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>WEB APP</title>
+<style type="text/css">
+*{padding:0;margin:0;font-size:24px;font-family:'微软雅黑';background:#f7f7ff}script{display:none}body{padding-left:20px}strong{display:inline-block;padding:5px 130px;margin:0 auto;text-align:center;background:#02a2bd;color:#fafffa;border:1px dotted #CCC}i{display:inline-block;font-style:normal;font-weight:bolder;color:red;background:#FFF;padding:5px 6px}b{display:inline-block;font-style:normal;font-weight:bolder;color:green;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC}a{display:inline-block;font-style:normal;text-decoration:none;font-weight:bolder;color:blue;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;cursor:pointer}ul{list-style:none;text-align:center}ul li{display:inline-block}ul li a{float:left;font-size:16px;color:green}.c{position:fixed;right:50px;bottom:20px;height:50px;width:50px;text-align:center;line-height:40px;border:0}u{display:inline-block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid green;background:0}sup{font-size:14px;background:0}em{overflow:hidden;height:29px;cursor:pointer}em,em i,em b{margin:10px;border-radius:4px;background-color:#FFF;padding:10px;font-size:13px;display:block;font-style:normal}em i,em b{font-size: 20px; padding: 10px 0;margin: 0}
+</style>
+
+</head>
+<body>
+<ul></ul>
+<strong>置顶</strong>
+call  作用域指向 两个参数
+apply
+<i>根<b>本</b><sup>听</sup><a>不</a><i>懂</i>,<b>从</b><sup>基</sup><a>础</a><i>来</i><b>吧</b> 加油</i>  
+<strong>重写爬虫，更优雅的异步编程</strong>
+<i>https</i>
+	http	https    
+	tcp	  ssl/tls
+	ip        tcp
+	           ip
+<i>https</i>node中专门处理加密传输
+
+<strong>Promise学习使用</strong>
+<i>对象有3种状态</i>
+未完成(pending)
+已完成(fulfilled)
+失败(rejected)
+<i>A与A+不同点</i>
+A+规范通过术语thenable来区别promise对象
+A+定义onFulfilled/onRejected必须是作为函数来调用，而且调用过程必须是异步的
+A+严格定义了then方法链式调用时onFulfilled/onRejected的调用顺序
+<i>promise then方法</i>
+promiseObj.then(onFulfilled,onRejected)   <b>第一个是操作时调用的回调函数，第二个是失败时调用回调函数</b>
+onFulfilled = function(value){
+	return promiseObj2
+}
+onRejected = function (err){
+	
+}
+<strong>Promise</strong>promise/promise.html
+安装npm install bluebird库	
+<b>< script	scr="../node_modules/bluebird/js/browser/bluebird.js"></ script ></b>
+<strong>request方法</strong>
+get就是对request的一个封装  <b>也就是说get能干的事 request都能做</b>
+<i>http.request(options[,callback])</i>
+第一个参数是对象的话就可以配置 来定制我们发出的请求的格式
+<b>host</b> 将要请求的服务器域名，或是ip地址
+<b>hostname</b> 就是host的别名
+<b>port</b> 远端服务器端口 末日80
+<b>localAddress</b> 绑定local链接的本地接口
+<b>socketPath</b> 
+<b>method</b> 指定http请求方法的字符串  默认get
+<b>path</b> 请求的路径 默认就是根路径 如果是有查询的字符串就要在后面追究一些参数
+<b>headers</b> 包含请求头的一个对象
+<b>auth</b> 用于计算头的基本认证  u'ze pa si wo de
+<b>agent</b> 控制agent行为也就是一个代理
+<b>keepAlive</b> 保持资源池周围的套接字在未来能被用于其他请求 末日的值是false
+<b>keepAliveMsecs</b>
+<strong>小爬虫</strong>	/school/comment.js
+<i>爬虫</i>
+var http = require('http')
+var url = 'http://www.imooc.com/learn/348'
+http.get(url,function(res){
+	var html = ''
+	res.on('data',function(data){
+		html += data
+	})
+	res.on('end',function(){
+		console.log(html)
+	})
+}).on('error',function(){
+	console.log('获取失败')
+})
+<strong>HTTP源码解读</strong>	
+nodejs  高并发          
+iojs 密集操作
+作用域	  局部作用域 全局作用域  
+上下文    this  一个函数被作用于对象调用时 this 指向调用这个方法的对象
+var pet = {
+	words: '...',
+	speck : function (){
+		console.log(this.words)
+	}
+}
+pet.speck()
+<i>this通常指向当前函数拥有者   拥有者叫做执行上下文</i>
+pet.call(this,words);
+pet.apply(this,arguments);
+<b>this 代表js一个关键字 函数运行时自动生成的一个内部对象</b>
+<em>nodejs  顶层的global"阁楼薄"对象 == window</em>
+<strong>HTTP概念进阶</strong>	
+<i>什么是回调</i>
+
+<i>什么是同步/异步</i>
+var c=0;
+function printIt() {
+	console.log(c)
+}
+function plus(callback) {
+	setTimeout(function(){
+		c+=1;
+		callback();
+
+	},1000)
+}
+plus(printIt)
+<i>什么是I/O</i>    磁盘  数据的进和出
+<i>什么是单线程/多线程</i>
+<i>什么是阻塞/非阻塞</i>  
+<i>什么是事件</i>
+<i>什么是事件驱动</i>
+<i>什么是基于事件驱动的回调</i>
+<i>什么是事件循环</i>
+<b>可以通过回调的方式来达到异步编程，非堵塞的效果</b>
+<b>nodejs  非堵塞  单线程  和事件驱动  更好的理解下一节内容</b>
+<strong>状态码</strong>	
+			             							200   OK成功
+1xx   	请求接受，继续处理	             			400   语法错误 服务器无法理解
+2xx		成功	             						401	  没有授权
+3xx		重定向，要想完成就要更进一步操作(跳转或..)	403	  拒绝提供服务  可能还是没有权限
+4xx		客户端错误，语法错误 ，无法实现	            404	  没找到
+5xx		服务器端错误	           				  	500   服务器端发生了不可预期错误
+			             							503   服务器端当前还不能处理这个请求                 
+<strong>http知识填坑-分解</strong>
+
+<strong>http知识填坑</strong>
+<i>http头和正文信息  </i>
+<em>http头发送的是一些附加信息：内容类型
+服务器发送响应的日期，HTTP状态码
+正文就是用户提交的表单数据。</em>
+chrome//net-internals/#dns
+首先域名解析
+
+1  chrome 先搜索自身的DNS缓存
+2  搜索操作系统自身的DNS缓存(浏览器没有找到缓存或缓存已经失效)   chrome//net-internals/#dns 查看缓存是否过期
+3  读取本地host文件
+4  浏览器发起一个DNS的一个系统调用
+5  浏览器获得域名对应的IP地址后，发起HTTP"三次握手"
+6  TCP/IP 连接起来后，浏览器就可以向服务器发送http请求了使用了比如说，用HTTP的GET方法请求一个根域里的一个域名，协议可以采HTTP1.0的一个协议
+7  服务器端接受到了这个请求，根据路径参数，经过后端的一些处理之后，把处理后的一个结果数据返回给浏览器，如果是慕课网的页面就会把完整的HTML页面代码返回给浏览器
+8  浏览器拿到了慕课网的HTML页面代码，在解析和渲染这个页面的时候，里面的js、css、图片静态资源，他们同样也是一个HTTP请求需要经过上面的主要的七个步骤
+9  浏览器根据拿到的资源对页面进行渲染，最终把一个完整的页面呈现给用户
+<i>运营商的DNS服务器呢首先</i>
+1.查找自身的缓存找到对应的条目
+2.没有找到会代替我们的服务器发起一个迭代DNS解析请求
+	运营商服务器吧结果返回操作系统内核	同时缓存起来
+	操作系统内核把结果返回浏览器
+	最终浏览器拿到www.imooc.com对应的IP地址
+<strong>Query String参数处理小利器</strong>
+<i>querystring.stringify</i> 序列化
+querystring.stringify({name:'scott',course:['1','2']},',',':')  第四个参数 默认限制1000 设置为0 就不限制
+<i>querystring.parse</i> 反序列化
+
+<i>querystring.escape('<哈哈>')</i>  转译
+<i>querystring.unescape('%3C%E5%93%88%E5%93%88%3E')</i>
+<strong>URL解析好帮手</strong>
+node
+<i>url.parse</i>
+url.parse('http://www.imooc.com/video/6710')  如果第二个参数设置true  则 query将变为一个对象  第三个参数设置为true
+{
+protocol: 'http',         什么协议 http  ftp
+slashes:true,			  是否//
+auth:null,
+host:'www.imooc.com',     ip地址或者域名
+port:null, 				  端口 默认80
+hostname:'www.imooc.com',  主机名
+hash:null,                锚点
+search:null,        查询字符串参数
+query:null,			发送数据=号间隔开的  键值称之为参数传
+pathname:'/video/6710', 	资源路径名
+path:'/video/6710',			路径
+href:'http://www.imooc.com/video/6710'  没被解析的超链接
+}
+<i>url.format</i>
+url.format({
+protocol: 
+slashes:
+auth:
+host:
+port:
+hostname:
+hash:
+search:
+query:
+pathname:
+path:
+href:
+})
+<b>会将这些解析为 合法的 url地址</b>
+<i>url.resolve('http://imooc.com/','/course/list')</i>
+http://imooc.com/course/list
+<strong>命令行体验</strong>
+ 目前版本 0.10.34  飙升 0.10.35  io.js也同时发布了1.0.1的版本 标志nodejs分化为两个阵营
+<strong>起一个web服务器</strong>
+const http = require('http');
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = http.createServer((req, res) => {   请求体和响应体    <b>req：那个url地址过来的，请求类型 res:告诉服务器给这个请求响应一些内容 要不然一直就是挂起的状态</b>       
+  res.statusCode = 200;		//返回的状态码  代表成功								
+  res.setHeader('Content-Type', 'text/plain');		 //返回的文本内容类型是 纯文本
+  res.end('Hello Nodejs\n');        
+   <b>这里是匿名的回调函数</b>
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+<b>修改内容没变化 因为没有重启服务器</b>
+<i>有请求有返回  五脏俱全啊</i>
+
+
+
+
+
+
+<script>
+window.onload=function(){(function(){var htm=document.getElementsByTagName("body")[0];htm.innerHTML=htm.innerHTML.replace(/\n/g,"<br/>").replace(/ /g,"&nbsp;").replace(/\t/g,"&nbsp;&nbsp;&nbsp;&nbsp;").replace(/<strong>/g,"----------------------------------------<br/><br/><strong>").replace(/`/g," ")})();(function(){var htm=document.getElementsByTagName("a");for(var i=0;i<htm.length;i++){htm[i].target="_blank";htm[i].href=htm[i].innerHTML}})();(function(){var str=document.getElementsByTagName("strong");var mao=document.getElementsByTagName("ul")[0];var links=[];for(var i=0;i<str.length;i++){var strs=str[i].innerHTML.replace(/&nbsp;/g,"--");str[i].id=strs;links.push('<li><a href="#'+strs+'">'+strs+"</a></li>")}links.push('<a class="c" href="#"><u></u></a>');mao.innerHTML=links.join(" ")})();(function(){var is=document.getElementsByTagName("em");for(var i=0;i<is.length;i++){is[i].onclick=function(){if(this.style.overflow!="visible"){this.style.overflow="visible";this.style.height="auto";this.style.fontSize="20px"}else{this.style.overflow="hidden";this.style.height="29px";this.style.fontSize="13px"}}}})()};
+</script>
+
+</body>
+</html>

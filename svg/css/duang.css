@@ -1,0 +1,14 @@
+h1 {
+  color: red;
+}
+.sound-content path {
+  fill: white;
+  stroke: red;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: -1200;
+  transition: 0.5s;
+}
+.sound-content:hover path {
+  stroke-dashoffset: 10;
+}
+/*# sourceMappingURL=duang.css.map */

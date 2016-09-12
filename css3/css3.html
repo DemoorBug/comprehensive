@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CSS3</title>
+<style type="text/css">
+*{padding:0;margin:0;font-size:24px;font-family:'微软雅黑';background:#F7F7FF;}
+script{display:none;}
+body{padding-left:20px;}
+i{display:inline-block;font-style:normal;font-weight:bolder;color:red;background:#FFF;padding:5px 6px;}
+b{display:inline-block;font-style:normal;font-weight:bolder;color:green;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;}
+a{display:inline-block;font-style:normal;text-decoration:none;font-weight:bolder;color:blue;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;cursor:pointer;}
+ul{list-style:none;text-align:center;}
+ul li{display:inline-block;}
+ul li a{float:left;font-size:16px;color:green}
+.c{position:fixed;right:50px;bottom:20px;height:50px;width:50px;text-align:center;line-height:40px;border:0;}
+u{display:inline-block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid green;background:none;}
+</style>
+</head>
+<body>
+<ul></ul>
+<strong>置顶</strong>  19.48  感冒头疼  特此请假  2016-5-18  —— 2016-5-19
+<strong>tap事件基础</strong>5.24
+自定义事件
+<b>自定义Tap事件原理：</b>
+在touchstart、touchend时记录时间、手指位置，在touchend时进行比较，如果手指位置为同一位置(或允许移动一个非常小的位移值)且时间间隔较短(一般认为200ms)，且过程中未曾触发过touchmove，即可认为触发了手持设备上的“click”，一般称他为“tap”
+<strong>样式处理</strong>5.24
+在移动web页面上渲染图片，为了避免图片产生模糊，图片的宽度用物理像素单位渲染，即100*100的图片，应该使用100dp*100dp
+width: (w_value/dpr)px;
+height: (h_value/dpr)px;
+<b>边框1px使用2dp渲染</b>
+.sidebar .folder li {
+	<!-- border-bottom: 0.5px solid #DDD -->
+	padding:8px 0 8px 15px;
+	color:#7c7c7c;
+	cursor:pointer;
+	position:relative;
+}
+.folder li + li:before {
+	position:absolute;
+	top: -1px;
+	left: 0 ;
+	content: '';
+	width:100%;
+	height:1px;
+	border-top:1px solid #DDD;
+	<i>-webkit-transform: scaleY(0.5)</i>
+}
+上面这个方案比较成熟的
+<b>相对单位</b>
+em : 是根据父节点font-size为相对单位
+rem : 是根据html的font-size为相对单位
+
+em在多层嵌套下，变得非常难以维护
+rem更加能成为全局统一设置的度量
+<b>实例rem</b>
+rem基值设置多少好？
+回归我们的目的：为了适应手机的屏幕
+rem = screen.width / 20;
+<b>——————————————</b>
+默认
+html {font-size:32px}
+iphone 6
+设备的宽度最少为375的时候
+@media (min-device-width: 375px) {
+	html { font-size:37.5px}
+}
+iphone 6 plus
+@media (min-device-width: 414px) {
+	html { font-size:41.4px;}
+}
+<b>换算公式</b>
+如iphone5上的rem基值为32px，渲染一张64*64px的div，则用2rem*2rem去渲染。换算公式非常简单：
+width：px/rem基值
+height：px/rem基值
+<i>多行文本溢出</i>
+//单行文本溢出...
+.inaline {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+//多行文本溢出...
+.intwoline {
+	display: -webkit-box ! important;
+	overflow: hidden;
+
+	text-overflow: ellipsis;
+	word-break: break-all;
+
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+}
+<strong>媒体查询</strong>5.23
+<b>@media screen and (max-width:1024px)</b>
+<i>常用媒体查询参数：</i>
+width	—— 视口宽高
+height —— 
+device-width	设备的宽度
+device-height	设备的高度
+orientation： 检测设备处于横向
+(landscape)还是竖屏 (portrait)
+<i>媒体类型</i>
+screen(屏幕)
+print(打印机)
+handheld(手持设备)
+all(通用)
+<strong>flex 属性 代替 弹性盒模型章节</strong>5.20
+justify-content: center; /*子元素水平居中*/
+align-items: center; /*子元素垂直居中*/
+display: -webkit-flex;
+<b>flex-direction:row; /*default*/</b>  方向  默认
+:row-reverse; /*default*/    反方向
+:column;  纵向
+:column-reverse;
+<b>flex-wrap:nowrap;</b> 默认
+flex-wrap:nowrap;              }
+display:-webkit-flex;          <  这个例子父容器虽然是400  里面内容撑出也不换行  
+width:400px; 				   }
+
+:wrap 正常
+:wrap-reverse 反方向
+<b>flex-flow:flex-direction flex-wrap;</b>    z自己体会  上面的结合
+<b>justify-content:flex-start;</b>  效果通 float：left
+:flex-end 	效果同 float: right
+:center   水平居中
+:space-between	两边对其
+:space-around   按间距去划分
+<b>align-self</b> 		<i>父元素用</i>
+:flex-start;   头部
+:flex-end;	底部
+:center; 	居中
+:auto; 	默认
+:baseline  字体什么位置
+:stretch;   填充满？
+<b>align-items:</b>      <i>子元素用</i>
+:flex-start     全部上
+:flex-end		下
+:center			居中
+:baseline       
+:stretch
+<b>align-content</b>
+:flex-start   不会像 align-items 切分高度    
+:flex-end 	  
+:center
+:space-between  上下两边
+:space-around   等比划分
+:stretch		默认  填充好整个容器
+<strong>addEventListener 事件</strong>5.19
+function addEnd (obj,fn) {
+	obj.addEventListener('webkitAnimationEnd',fn,false);
+}
+document.getElementById('box').onclick = function()
+{
+	this.className = 'box move';
+	addEnd(this,fn)
+}
+function fn () {
+	alert( 'e' )
+}
+<strong>@-webkit-keyframes move 动画</strong>5.18
+<b>animation:move 5s 1s ease-in 5 </b>
+<b>animation:2s move</b>
+<b>必要属性</b>
+	-animation-name 				动画名称(关键帧名称)
+	-animation-duration 			动画持续时间
+例子
+	animation-play-state 播放状态 (running 播放 和 paused 暂停)
+<b>可选属性</b>
+animation-timing-function
+	-linear 		均速
+	-ease			缓冲
+	-ease-in		由慢到快
+	-ease-out		由快到慢
+	-ease-in-out	由慢到快再到慢
+	-cubic-bezier (1,1,1,1)  [0-1]
+<b>可选属性2</b>
+animation-delay			动画延迟
+	-只是第一次
+animation-iteration-count	重复次数
+	-infinite 为无限次
+animation-direction 		播放前重置
+	-动画是否重置后再开始播放
+	-alternate	动画直接从上一次停止的位置开始执行
+	-normal		动画第二次直接跳到0%的状态开始执行
+<strong>css3.0-3d变换-1</strong>5.17
+<b>transform-style(preserve-3d)</b>建立3D空间
+<b>perspective:100px</b>景深
+<b>perspective-origin</b>景深基点
+<b>backface-visibility</b>隐藏背面
+<b>Transform</b> 新增函数
+	·rotateX()
+	·rotateY()
+	·rotateZ()
+	·translateZ()
+	·scaleZ()
+<strong>matrix(a,b,c,d,e,f)矩阵</strong>5.17
+filter:progid:DXImageTransform.Microsoft.Matrix(M11=1,M12=0,M21=0,M22=1,SizingMethod='auto expand');
+m11 == a , m12 == c, m21 == b , m22 == d
+<strong>transform</strong>5.17
+<i>后写的先执行</i>
+transform:rotate(20deg) skewX(20deg) scaleX(20px);
+	·rotate() 旋转函数 取值度数
+		-deg 度数
+		-Transform-origin 旋转的基点   <i>放到未变化元素上  最多估计是两个参数</i>
+		<i>rotateX rotateY rotateZ</i> 还有z轴
+	·skew()倾斜度数 取值度数
+		-skewX()
+		-skewY()
+		transform:skewX(**deg)
+		transform:skew(**deg,**deg)
+	·scale()缩放函数 取值 正数、小数
+		-scaleX()
+		-scaleY()
+	·translate()位移函数
+		-translateX()
+		-translateY()
+		transform:translateX(**px)
+		transform:translate(**px,**px)
+<b>这里有个钟表 以后可以复习下 <i>妙味云课堂-钟表效果-4</i></b>
+<b>扇形导航 <i>妙味云课堂-扇形导航</i> 赶紧学点不知道的 这些案例可以闲下来弄</b>
+<strong>transitionend事件</strong>5.16
+<b>
+function addEnd(obj,fn) {
+	obj.addEventListener('WebkitTransitionEnd',fn,false);
+	obj.addEventListener('transitionend',fn,false);
+}
+function removeEnd(obj,fn) {
+	obj.removeEventListener('WebkitTransitionEnd',fn,false);
+	obj.removeEventListener('transitionend',fn,false);
+}
+addEnd(oBox,function(){      美执行完一个transition就会触发  这个函数   oBox代表当前有tran元素
+	this.style.width = this.offsetWidth+100+"px"
+	removeEnd(this,addEnd)
+})
+oBox.onclick = function (){
+
+	
+}
+</b>
+<strong>transition过渡</strong>5.16
+属性
+ease： (逐渐变慢)默认值
+linear： 匀速
+ease-in：加速
+ease-out：减速
+ease-in-out：先加速后减速
+cubic-bezier 贝塞尔曲线(x1,y1,x2,y2)
+<strong>新增ui样式3</strong>5.15
+<i>径向渐变</i>
+<b>radial-gradient:[起点|| left(数值) || 大小 || 形状]<点>,<点></b>
+background:-webkit-radial-gradient(farthest-corner,red,blue)
+形状：ellipse椭圆、circle圆
+大小：具体数值或百分比，也可以是关键字
+(最近端closest-side，
+最近角closest-corner，
+最远端farthest-side，
+最远角farthest-corner，
+包含contain或覆盖cover)
+(closest-side,closest-corner,farthest-side,farthest-corner,contain or cover);
+	-注意firefox目前只支持关键字
+<i>背景尺寸</i>
+<b>background-size:x y </b>
+	-background-size:100% 100%;
+	-Cover 放大
+	-Contain 缩小
+<b>background-origin: border|padding|content</b>
+	·border-box: 从border区域开始显示背景。
+	·padding-box: 从padding区域开始显示背景。
+	·content-box: 从content区域开始显示背景
+<b>background-clip</b> 背景裁切   <i>这里用到一个ip开机解锁哪里的一个动画，很简单不会的话可以到本节28分钟</i>
+	·border: 从border区域向外裁剪背景
+	·padding: 从padding区域向外裁剪背景
+	·content: 从content(内容)区域向外裁剪背景
+	·no-clip: 从border区域向外裁剪背景
+	·text : 从text区域向外裁剪背景 
+<b>遮罩</b>  就是添加一个png图片作为遮罩
+Mask-image
+Mask-position
+Mask-repeat
+
+<strong>新增ui样式2</strong>5.15
+<i>边框颜色</i>
+<b>border-colors:red bule syellow</b> 多种边框颜色 兼容不是很好
+<i>线性渐变</i>
+属于background-image:的
+<b>linear-gradient([<起点>||<角度>,]?<点>,<点>...);</b>
+linear-gradient(30deg,blue 20px,red 50%);
+只能用在背景上
+	-IE
+	filer:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF',endColorstr='#ff0000',GradientType='1');
+参数
+	-起点：从什么方向开始渐变  默认top
+	top right bottom left
+	-角度：从什么角度开始渐变
+			xxx deg的形式
+	-点：渐变点的颜色和位置
+			black 50%，位置可选  <i>50%代表范围吧</i>
+<b>repeating-linear-gradient(60deg,red 0,blue 30px)  平铺</b>
+<strong>新增ui样式1  box-radius 还不是很熟悉 今天就到这里5.13 </strong>
+<b>box-radius</b>
+100px/200px  前边x轴半径  后边y轴半径
+<strong>响应式布局</strong>
+<b>< link rel="stylesheet" type="text/css" href="css.css" media="srceen and (min-width:800px)"></b>
+<b>< link rel="stylesheet" type="text/css" href="css.css" media="all and (orientation:portrait)"></b> 竖屏
+<b>< link rel="stylesheet" type="text/css" href="css.css" media="all and (orientation:landscape)"></b> 横屏
+
+<b>border-img:url 0 10</b>   0代表上下  10代表左右
+ ·border-image-sourceg  引用图片
+ ·border-image-slice 切割图片  单位没有<i>px</i>
+ ·border-image-width 边框宽度
+ ·border-image-repeat 图片的排序方式
+ 	- round平铺，repeat重复，stretch 拉伸
+border-left-width:10px;
+
+
+<b>style 里面写  </b>
+@media screen and (min-width:400px) and (max-width:500px) {}
+
+@import url('indexc.css') srceen and (min-width:400px) and (max-width:800px);
+<strong>分栏布局</strong>
+column-width 栏目宽度
+column-count 栏目列数
+column-gap 栏目距离
+column-rule 栏目间隔线
+<strong>盒阴影</strong>
+<b>box-shadow: [inset] x y blur [spread] color</b>
+inset 内阴影
+blue 模糊半径
+spread 扩展阴影半径  先扩展原有形状，再开始画阴影
+<b>box-reflect:方向 距离 渐变(可选)</b>倒影
+direction 方向   above|below|left|right
+距离  
+渐变(可选)  <b>-linear-gradient(left,red 0,blue 100%)  线性渐变</b>
+<b>resize</b>  自由缩放   <i>添加后盒子就可以自由伸缩</i>
+	·Both 水平垂直都可以缩放
+	·Horizontal 只有水平方向可以缩放
+	·Vertical 只有垂直方向可以缩放
+	注意：一定要配合overflow：auto一块使用 只有水平方向可以伸缩
+<b>box-sizing:[box]</b>
+content-box    标准盒模型
+width/height = border+padding+content
+border-box    怪异
+width/height = content
+<strong>弹性盒模型</strong> 放到父级使用
+display:box || inline-box; <b>display:-webkit-box 老的写法，而且兼容性不够好，需要用前缀。</b>    <i>慕课网看到的：-webkit-flex 父级设置  子元素fiex：1</i>
+<b>Box-orient</b>定义盒模型的布局方向
+	·Horizontal 水平显示
+	·vertical 垂直显示
+<b>Box-direction</b> 元素排列顺序
+	·Normal 正序
+	·Reverse 反序
+<b>Box-ordinal-group</b> 设置元素的位置
+<b>box-flex</b>  定义弹性空间
+	公式 子元素尺寸=盒尺寸*子元素的box-flex属性值/所有子元素的box-flex属性值的和
+<b>box-pack</b> 对盒子富裕的空间进行管理
+	·Star 所有子元素在盒子左侧显示，富裕空间在右侧
+	·End 所有子元素在盒子右侧显示，富裕空间在左侧
+	·Center 所有子元素居中
+	·Justify 富裕空间在子元素之间平均分布
+<b>box-align</b> 在垂直方向上对元素的位置进行管理
+	·Star 所有元素在顶
+	·End 所有子元素在底
+	·Center 所有子元素居中
+<strong>文本属性</strong>
+text-shadow x y mohu color   文字阴影
+<b>text-stroke</b> x color    描边
+<b>Direction</b>  定义文字排序方式(全兼容)  <i>兼容IE6</i>
+Rtl  从右向左排序
+Ltr  从左向右排序
+注意要配合unicode-bidi 一起使用
+<b>Text-overflow</b>     两个值 clip  无省略号   Ellipsis 省略号
+white-space:nowrap;  不要超出换行
+overflow:hidden; 
+Text-overflow:Ellipsis
+<i>自定义字体</i>转换文字格式生成兼容代码 <a>http://www.fontsquirrel.com/fontface/generator</a>
+@font-face {
+    font-family: 'FontName';
+    src: url('FileName.eot');
+    src: url('FileName.eot?#iefix') format('embedded-opentype'),
+         url('FileName.woff') format('woff'),
+         url('FileName.ttf') format('truetype'),
+         url('FileName.svg#FontName') format('svg');
+    font-style: normal;
+    font-weight: normal;
+}
+b
+<strong>伪类选择</strong>
+div:target {display: block;background: red;}
+<b>target</b> 控制哈希值  锚机那个东西
+<i>控制表单很有用</i>
+<b>enabled</b>  可以点击状态表单控件
+<b>disabled</b>  不可编辑状态
+<b>checked</b>  控制 type=checkbox || radio 的选中样式   
+<b>给radio用相同name 就可以成为单选框</b>
+<i>文本新增伪类</i>
+<b>E:first-line</b>  文本第一行
+<b>E:first-letter</b>  第一个文字
+<i>伪元素</i>
+<b>E::selection</b> 表示E元素在用户选中文字时       选中文字的时候样式 这个牛
+<b>E::before</b>  生成元素之前
+<b>E::after</b>  生成元素之后
+::after {content:"苗圩"; display:block;border:1px solid red;}
+<b>E:not(.h2)</b>  排除某一项
+<strong>选择器</strong>
+<i>属性选择器</i>
+p[属性名='属性值']
+p[miaov~='ds']{background: red;}
+p[attr~='value']  词组中有value
+p[attr^='value']  value开头
+p[attr$='value']  value结尾
+p[attr*='value']  只要包含了value
+p[attr|='value']  横岗开始  或者单纯value    b-leo
+<i>结构选择器</i>
+p:nth-child(1){bakcground: red;}  表示P父元素中的第几个节点
+p:nth-child(odd) {}  奇数行
+p:nth-child(even) {}  偶数行
+p:nth-child(n) {}  n代表从1到正无穷大一个整数  2n  2*0开始到2*正无穷大
+
+<b>nth-last-child()</b>从后往前数
+p:nth-of-type(1){background: red;}        这个的话 值查找P父级元素下的 P  也就是整合到一个集合 其他东西不管
+<b>p:first-child</b> 也就是直接第一个 
+<b>p:last-child</b> 最后一个  
+<b>p:first-of-type</b> 第一个   元素的第一个节点必须是P
+<b>p:last-of-type</b> 最后一个
+
+<i></i>
+p:empty{background:red;}  是否为空标签
+p:only-of-type 表示p元素中只有一个子节点，且这个唯一的子节点类型必须是p。注意：子节点不包含文本节点
+<b>这样听就很难理解   我的理解就是 一个父元素下不能有一样的节点 p *:only-of-type</b>
+p:only-child  表示p元素只有一个子节点。注意子节点不包含文本节点
+
+
+
+
+<script>
+	 window.onload = function(){
+	 (function () {
+		var htm = document.getElementsByTagName('body')[0];
+		htm.innerHTML = htm.innerHTML.replace(/\n/g,'<br/>').replace(/ /g,'&nbsp;').replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;').replace(/<strong>/g,'----------------------------------------<br/><br/><strong>').replace(/`/g,' ');
+	 })();
+	 (function() {
+	 	var htm = document.getElementsByTagName('a');
+	 	for(var i=0;i<htm.length;i++){
+	 		htm[i].target = '_blank'
+	 		htm[i].href = htm[i].innerHTML
+	 	}
+	 })();
+	 (function() {
+	 	var str = document.getElementsByTagName('strong');
+	 	var mao = document.getElementsByTagName('ul')[0];
+	 	var links = [];
+	 	for(var i=0;i<str.length;i++) {
+	 		var strs = str[i].innerHTML.replace(/&nbsp;/g,'--');
+	 		console.log(strs)
+	 		str[i].id = strs;
+	 		links.push( '<li><a href="#' +strs+ '">'+strs+'</a></li>' );
+	 	}
+	 	links.push('<a class="c" href="#"><u></u></a>'  )
+	 	mao.innerHTML=links/*.reverse()*/.join(' ')
+	 })()
+	}	
+</script>
+
+</body>
+</html>

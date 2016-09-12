@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>总结</title>
+<style type="text/css">
+*{padding:0;margin:0;font-size:24px;font-family:'微软雅黑';background:#F7F7FF;}
+script{display:none;}
+body{padding-left:20px;} strong {display:inline-block;padding: 5px 130px;margin: 0 auto;text-align: center;background: #02A2BD;color: #FAFFFA;border: 1px dotted #CCC;}
+i{display:inline-block;font-style:normal;font-weight:bolder;color:red;background:#FFF;padding:5px 6px;}
+b{display:inline-block;font-style:normal;font-weight:bolder;color:green;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;}
+a{display:inline-block;font-style:normal;text-decoration:none;font-weight:bolder;color:blue;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;cursor:pointer;}
+ul{list-style:none;text-align:center;}
+ul li{display:inline-block;}
+ul li a{float:left;font-size:16px;color:green}
+.c{position:fixed;right:50px;bottom:20px;height:50px;width:50px;text-align:center;line-height:40px;border:0;}
+u{display:inline-block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid green;background:none;}
+sup { font-size: 14px; background: none }
+em ,em i,em b{   margin:10px; border-radius: 4px;background-color: #FFF;padding: 10px;font-size: 13px; display: block;font-style: normal;}
+</style>
+</head>
+<body>
+<ul></ul>
+<strong>置顶</strong>.
+ctrl+shift+j  注释函数
+查看快捷键	ctrl+shift+l
+<strong>41</strong>.对应文件41Demo2.php
+<i>这章主要讲解了些 图片进行微缩</i>
+<i>getimagesize</i> — 取得图像大小
+创建一个新图  $im = imagecreatetruecolor($_width,$_height);
+下面的工作是载入原图  $_im = imagecreatefromjpeg(__RIL__.'12.jpe');
+ imagecopyresampled — 重采样拷贝部分图像并调整大小
+
+ //将新图输出
+    imagejpeg($im,null,10);
+    imagedestroy($im);    //关闭第一个句柄
+    imagedestroy($_im);		//关闭第二个句柄
+<strong>41</strong>.
+<i>加载系统已有字体</i>
+define('URL', dirname(__FILE__).'\\');
+header('Content-Type:image/png'); - 设置开头
+<i>imagecreatefrompng </i>— 由文件或 URL 创建一个新图象。
+采用系统提供的字体
+<i>iconv</i> — 字符串按要求的字符编码来转换
+<i>imagecolorallocate</i> — 为一幅图像分配颜色
+<i>imagettftext</i> — 用 TrueType 字体向图像写入文本
+<i>这个是自己写的随机验证码  感觉不错</i>
+<i>imagepng</i> - 输出
+<i>imagedestroy</i> - 清除
+<strong>40</strong>.对应章节40Demo2.php
+<i>这章导入一个已有的图片 添加水印</i>
+define('URL', dirname(__FILE__).'\\');
+<i>imagecreatefrompng — 由文件或 URL 创建一个新图象。</i>
+<strong>40</strong>.
+<i>简单的一个验证码</i>
+// mt_rand — 生成更好的随机数
+//     echo mt_rand(0,15);
+//  为什么要循环0-15之间的数呢？
+//  因为要实现最简单的字母和数字搭配
+//  十六进制 0-9  a-f;
+//  dechex — 十进制转换为十六进制
+//  十六进制 0-9都一样的  但是10-15的时候会转换为A-F
+//     echo dechex(mt_rand(0,15));
+    for ($i=0;$i<4;$i++) {
+        @$nmsg .= dechex(mt_rand(0,15));  //会报错 也解决不了 头疼
+    }
+
+<strong>39</strong>.
+/*
+     * 创建图像的一般流程
+     * 1.设定标头，告诉浏览器你要生成的MIME类型
+     * 2.创建一个图像区域，以后的操作都将基于此图像区域
+     * 3.在空白图像区域绘制填充背景
+     * 4.在背景上绘制图像轮廓输入文本
+     * 5.输出最终图像。
+     * 6.清除所有资源
+     * 7.其他页面调用图像
+*/ 
+//  <i>1设置标头指定MIME输出类型：</i>
+    	header('Content-Type: image/png');
+//  <i>2新建一个基于调色板的图像</i>
+	$im = imagecreatetruecolor(200, 200);
+//  <i>为一幅图像分配颜色</i>
+	$color = imagecolorallocate($im, 153,204 ,255 );
+//  <i>3区域填充</i>
+	imagefill($im, 0, 0, $color);
+//  <i>4绘制线条</i>
+	$white = imagecolorallocate($im, 0,0,0 );
+	imageline — 画一条线段
+	imageline($im, 0, 0, 200, 200, $white);
+	imagestring — 水平地画一行字符串
+	imagestring($im,5,80,80,'Mr.jj',$white);
+//  <i>5以 PNG 格式将图像输出到浏览器或文件</i>
+	imagepng($im); //要放一个句柄
+//  <i>第六步 清除所有资源</i>
+	imagedestroy($im);
+
+<strong>38</strong>.
+创建一个常量
+dirname — 返回路径中的目录部分
+is_dir — 判断给定文件名是否是一个目录
+ mkdir — 新建目录
+<i>define('URL', dirname(__FILE__).'\images');</i>
+$UR = str_replace( '\\', '/',URL);
+in_array — 检查数组中是否存在某个值
+is_array — 检测变量是否是数组
+<i>这个章节进行了很多优化和改进</i>
+if (!is_dir(URL)) { <i>这个创建一个常量后，进行各种取值取得目录，如果没有该目录 则自己创建</i>
+       mkdir(URL,0777);
+}
+<strong>37</strong>.
+<i>这两章都写到一起了，36主要讲了一些根目录PHP.ini的设置</i>
+<strong>36</strong>.
+<i>这一章用处很多</i>
+is_uploaded_file()  判断文件是否通过HTTP POST上传的
+move_uploaded_file — 将上传的文件移动到新位置
+location.href='xianshi.php?url=".'images/'.$_FILES['username']['name']."'</ script>"
+<I>大概就是可以将一个图片用户去上传到本网站，成为自己网站的一部分，差不多就是可以达成我们说的  B 2 B 用户对用户</I>
+<strong>35</strong>.
+做一个简单的登陆
+<i>cookie</i>
+<i>Session会话</i>
+<strong>34</strong>.
+time — 返回当前的 Unix 时间戳
+setcookie('name','wq');
+/*  <i>cookie限制</i>
+ * 1、必须在HTML文件的内容输出之前设置
+ * 2、不同的浏览器对cookie的处理不一致，且有时会出现错误的结果
+ * 3、限制是在客户端的。一个浏览器能创建的cookie数量最多为30
+ * 个，并且每个不能超过4KB，每个WEB站点能设置的cookie总量
+ * 不超过20个
+ */
+ <i>$_COOKIE</i>
+<strong>33</strong>.
+接收所有数据
+正则判断邮箱
+PHP可以输出JS代码
+<i>$_GET 可以接收超链接？后的变量值</i>
+<strong>32</strong>.
+header('Content-Type:text/html;charset=gbk');//设置页面编码
+<i>header('Location:Demo2.php'); //绝对相对链接都可以</i>
+/*
+ *  表单元素                 描述
+ *  text input              文本框
+ *  passoword input     密码框
+ *  hidden                   隐藏框
+ *  select                      下拉列表框
+ *  checkbox                复选框
+ *  radio                       单选按钮
+ *  textarea                    区域框
+ *  file                            上传
+ *  submit                     提交按钮
+ *  reset                         重置按钮
+ *  email 				邮箱
+ */
+ <i>$_POST  $_GET</i>
+ isset — 检测变量是否设置
+<strong>31</strong>.
+explode — 使用一个字符串分割另一个字符串
+microtime — 返回当前 Unix 时间戳和微秒数  返回两个值
+localtime — 取得本地时间  
+date_default_timezone_set('Asia/Shanghai');  //有效 //字符串意思 ： 亚洲/上海
+putenv — 设置环境变量的值  putenv('TZ=Asia/Shanghai')  这种设置已经无效了  不知道为什么 反正用上面那个就行了
+getlastmod — 获取页面最后修改的时间 :
+date('Y-m-d H:i:s',getlastmod()+(60*60*8)) 这种写法后面60*60*8 == 已秒数增加8小时
+strtotime('2015-12-05 18:13:06');  //人性化获取时间戳
+mktime(12,18,2,1,7,2016);   //这种就很反人类吧  //时-分-秒-月-日-年
+date('Y-m-d H:i:s',mktime(12,18,2,1,7,2016))
+time()+(60*60*8); //时间差写法
+round — 对浮点数进行四舍五入
+<strong>30</strong>.
+checkdate — 验证一个格里高里日期  //没有详细的用法 
+gettimeofday — 取得当前时间  //返回数组
+getdate — 取得日期／时间信息
+time — 返回当前的 Unix 时间戳  //直接获取时间戳
+<strong>29</strong>.
+preg_grep — 返回匹配模式的数组条目 //函数搜索数组中的元素。
+preg_match — 执行一个正则表达式匹配 //第一个当然是正则表达式 第二个要进行匹配的字符串
+preg_match_all — 执行一个全局正则表达式匹配  //要传3个参数 第三个参数利用二维数组储存
+	//定界正则
+preg_quote — 转义正则表达式字符
+preg_replace — 执行一个正则表达式的搜索和替换
+	//取消贪婪
+1.第一种是利用JS中的?方式
+2.第二种呢PHP中自己有  用  "U"  直接去除贪婪
+
+preg_split — 通过一个正则表达式分隔字符串
+print_r(preg_split('/[.w]/','qweq.qwe@qwe.q@we@qw.qwe'));
+<strong>28</strong>.
+preg_match — 执行一个正则表达式匹配
+x表示忽略空白 /php/x;
+<strong>27</strong>. 
+	同28章  
+<strong>26</strong>.
+所有处理中文字符串的都是已mb开头的 
+重点讲5个，其他可以硬套
+ /*
+	 * mb_strlen();     mb_strlen — 获取字符串的长度
+	 * mb_strstr();      mb_strstr — 查找字符串在另一个字符串里的首次出现
+	 * mb_strpos();    mb_strpos — 查找字符串在另一个字符串中首次出现的位置
+	 * mb_substr();    mb_substr — 获取字符串的部分
+	 * mb_substr_count();  mb_substr_count — 统计字符串出现的次数
+	 *                                  //对应函数 substr_count();   手册中没有
+	 * substr_count — 计算字串出现的次数                                
+	 */
+	$inname = '名字';
+	mb_strpos($inname,'字',0,'gbk');  可以用这个格式硬套其他的 手册看了就会了
+<strong>25</strong>.
+	/*
+	 * strcmp();  strcmp — 二进制安全字符串比较
+	 * strcasecmp();  strcasecmp — 二进制安全比较字符串（不区分大小写）
+	 * strnatcmp(); strnatcmp — 使用自然排序算法比较字符串
+	 */
+strcmp('吧', '啊');  // $st1 > str2 返回大于0 $st1 < $st2 返回小于0
+strcasecmp('a', 'A'); //不区分大小写
+strcmp('2', '10');  //这种是字符比较 所以比较的是第一个值
+strnatcasecmp('2', '10');  //这个是自然排序法
+strspn — 计算字符串中全部字符都存在于指定字符集合中的第一段子串的长度。
+echo strspn('sin', 'suin po',0,3);
+strlen($string); //字符串长度
+substr_count — 计算字串出现的次数
+strchr() 是 strstr的别名;
+strstr('qweqdd', 'd',true);  //打印出该字符首次出现位置
+strpos — 查找字符串首次出现的位置 //最先出现的位置
+strrpos — 计算指定字符串在目标字符串中最后一次出现的位置 //最后出现的位置
+// str_replace — 子字符串替换
+// str_ireplace — str_replace() 的忽略大小写版本
+// substr_replace — 替换字符串的子串
+//     echo str_replace('.','伍德','this is .');
+//     echo substr_replace('this is .','$#',0,5); // 第0个开始取5个 替换为$#
+<strong>24</strong>.
+/*explode() explode — 使用一个字符串分割另一个字符串
+     * implode() implode — 将一个一维数组的值转化为字符串
+     * join()  join — 别名 implode()
+     */
+strtok — 标记分割字符串
+substr — 返回字符串的子串
+str_split — 将字符串转换为数组
+strrev — 反转字符串         <i>中文不行</i>
+<strong>23</strong>.
+trim — 去除字符串首尾处的空白字符（或者其他字符）
+ltrim — 删除字符串开头的空白字符（或其他字符）
+rtrim — 删除字符串末端的空白字符（或者其他字符）
+   /*
+    * chop()  chop — rtrim() 的别名
+    * ltrim()  ltrim — 删除字符串开头的空白字符（或其他字符）
+    * rtrim()  rtrim — 删除字符串末端的空白字符（或者其他字符）
+    * trim()  trim — 去除字符串首尾处的空白字符（或者其他字符）
+    */
+nl2br — 在字符串所有新行之前插入 HTML 换行标记 //通常在回帖的时候使用
+htmlentities 转换所有字符
+htmlspecialchars($ea);  //转换html代码
+strip_tags($ea);  //此方法直接将 < strong>删除
+addslashes($ea);   //  给特殊符号加上转义符
+stripcslashes($ea);  //将反斜杠去掉
+//  格式化字符串大小写
+    /*
+     * strtoupper()  函数将字符串转换为大写
+     * strtolower()   函数将字符串转换为小写
+     * ucfirst()         函数将第一个字母转换为大写
+     * ucwords()      函数将每个单词第一个字母转换为大写;
+     * 
+     * str_pad — 使用另一个字符串填充字符串为指定长度
+     */
+str_pad — 使用另一个字符串填充字符串为指定长度  <i>应该不错</i>
+<strong>22</strong>.
+require 'p.php';  //如果不存在就停止执行并报错
+include 'p.php';    //如果不存在就报错
+require_once 'p';  //如果调用一次 则不会继续调用
+//推荐使用require;
+魔法常量  ...
+
+require(dirname(__FILE__).'\21Demo.php');  //此写法可以读取读取大目录
+<strong>21</strong>.
+按引用传递加上&即可
+global 定义全局变量
+$GLOBALS['a'] = 50;   //超级全局变量，就是一个数组啊
+include '';  //==链接了一个Php文件吧
+print_r($_POST);  不知道为什么用到这个
+<strong>20</strong>.
+	这一章貌似没什么重点 所以当时是跳过了
+<strong>19</strong>.
+file_exists — 检查文件或目录是否存在
+filesize — 取得文件大小
+unlink — 删除文件
+rewind — 倒回文件指针的位置
+fseek — 在文件指针中定位
+ftell — 返回文件指针读/写的位置 //查看当前指针位置
+fopen — 打开文件或者 URL
+fgetc — 从文件指针中读取字符
+fclose — 关闭一个已打开的文件指针
+文件锁定  --解决问题:假如同时两个客户购买，只能获得一条数据
+flock — 轻便的咨询文件锁定
+opendir — 打开目录句柄
+readdir — 从目录句柄中读取条目
+closedir($dir); //关闭
+scandir — 列出指定路径中的文件和目录
+rmdir — 删除目录
+rename — 重命名一个文件或目录
+md5 — 计算字符串的 MD5 散列值  //加密
+md5_file — 计算指定文件的 MD5 散列值
+函数传入值的话 直接覆盖 没传值用赋值的
+<strong>18</strong>.
+fwrite — 写入文件（可安全用于二进制文件）
+fgetc — 从文件指针中读取字符
+fgets — 从文件指针中读取一行
+fpassthru — 输出文件指针处的所有剩余数据
+//读出文件
+/*     
+	fgetc($handle); — 从文件指针中读取字符
+	fgets($handle); — 从文件指针中读取一行
+	fgetss($handle); — 从文件指针中读取一行并过滤掉 HTML 标记
+	fread($handle, $length); — 读取文件（可安全用于二进制文件）
+	fpassthru($handle); — 输出文件指针处的所有剩余数据
+	
+	file($filename); — 把整个文件读入一个数组中
+	readfile($filename); — 输出一个文件
+	file_get_contents($filename); — 将整个文件读入一个字符串 //函数源码自带fclose 关闭 
+	*/
+//利用while循环完成  feof 测试文件指针是否到了文件结束的位置
+<strong>17</strong>.
+fopen — 打开文件或者 URL
+fopen 返回的是资源类型(resource),我们一般称它为句柄，或者叫资源句柄
+fwrite — 写入文件（可安全用于二进制文件）
+file_put_contents — 将一个字符串写入文件 //不需要任何其他灵活的事情的时候使用
+<strong>16</strong>.
+basename — 返回路径中的文件名部分
+dirname — 返回路径中的目录部分
+pathinfo — 返回文件路径的信息
+realpath — 返回规范化的绝对路径名
+相绝路径
+filesize — 取得文件大小
+round — 对浮点数进行四舍五入
+round(filesize($name)/1024,2);         //这样却得是字节，字节/1024得KB
+disk_free_space — 返回目录中的可用空间
+echo round(disk_free_space('D:')/1024,2)/1024/1024;
+disk_total_space — 返回一个目录的磁盘总大小
+echo round(disk_total_space('G:')/1024/1024/1024,2);
+fileatime — 取得文件的上次访问时间
+date_default_timezone_set — 设定用于一个脚本中所有日期时间函数的默认时区
+fileatime — 取得文件的上次访问时间
+filectime — 取得文件的 inode 修改时间
+filemtime — 取得文件修改时间
+date('Y:m:d '.'H:i:s',fileatime($Basic5));  //应该是可以直接打印出访问时间
+<strong>15</strong>.
+array_unshift — 在数组开头插入一个或多个单元 
+array_push — 将一个或多个单元压入数组的末尾（入栈） 
+array_shift($userNames); //删除开头
+array_pop($userNames); //删除末尾
+array_rand — 从数组中随机取出一个或多个单元 
+array_rand($userNames,2);  //返回数组中随机或多个键(key) 
+
+gettype — 获取变量的类型
+
+current($array);   //获取指针当前的元素
+next — 将数组中的内部指针向前移动一位
+reset — 将数组的内部指针指向第一个单元
+prev — 将数组的内部指针倒回一位
+pos — current() 的别名
+end — 将数组的内部指针指向最后一个单元
+array_count_values($array)  统计数组中所有值出现的次数
+extract — 从数组中将变量导入到当前的符号表  //将数组中字符串键(key)设置为变量
+初始化 $z=$ci='';
+<strong>14</strong>.
+sort — 对数组排序
+asort — 对数组进行排序并保持索引关系
+foreach 语法结构提供了遍历数组的简单方式。foreach 仅能够应用于数组和对象，如果尝试应用于其他数据类型的变量，或者未初始化的变量将发出错误信息。有两种语法： 
+each — 返回数组中当前的键／值对并将数组指针向前移动一步 
+while ($a = each ($fn)) {     //按顺序打印
+        echo '< br />'.$a['key'].'=>'.$a['value'];
+}
+count — 计算数组中的单元数目或对象中的属性个数
+krsort — 对数组按照键名逆向排序
+sort(); asort(); ksort();  a的是排序后不改变key关系
+k是按key排序
+rsort(); arsort(); krsort();  全部+上r 代表降序
+shuffle — 将数组打乱
+array_reverse — 返回一个单元顺序相反的数组 
+rsort — 对数组逆向排序
+
+//array打头的一般创建一个新数组进行返回 当然是一般喽
+<strong>13</strong>.
+list — 把数组中的值赋给一些变量 
+each — 返回数组中当前的键／值对并将数组指针向前移动一步 
+13章还有个小练习，虽然很简单，但是也是一番努力得来的
+<strong>12</strong>.
+reset — 将数组的内部指针指向第一个单元
+array_unique — 移除数组中重复的值
+array_unique($userNames);   //只能临时删除不能改变原数组
+array_flip — 交换数组中的键和值
+<strong>11</strong>.
+each — 返回数组中当前的键／值对并将数组指针向前移动一步 
+<strong>10</strong>.
+range — 建立一个包含指定范围单元的数组 
+	/*
+	 *  count()和sizeof()统计数组下标的个数
+	 *  array_count_values($array);统计数组内下标的个数
+	 */
+is_array — 检测变量是否是数组
+<strong>9</strong>.
+可以在变量或值前面增加(int)、(integer)、(float)、(double)或(real)实现
+intval — 获取变量的整数值
+floatval — 获取变量的浮点值
+is_numeric — 检测变量是否为数字或数字字符串 
+is_int($var);   is_float($var);  用于检测具体数值类型
+/* 
+    $a = '10.5';
+//     echo intval($a);
+    echo floatval($a);          //临时转换
+    settype($a, "float");    //转换
+    echo gettype($a);           //查看类型
+ */
+rand();     //这个是老的函数生成 随机数;
+mt_rand(0,10);  //比rand快4倍  牛B啊
+getrandmax();    //最大随机数
+mt_getrandmax();    //最大随机数
+	//格式化数据
+number_format — 以千位分隔符方式格式化一个数字
+number_format($a,2,'#','c');  //这里后面必须传两个参数才可全部更改
+/*
+ *  数学函数
+ *  abs();  绝对值
+ *  floor(); 舍去法取整 
+ *  ceil(); 进一法取整
+ *  round(); 四舍五入
+ *  min(); 求最小值或数组中最小值
+ *  max(); 求最大值数组中最大值
+ */
+echo pow(2,4);   //2的4次方
+<strong>8</strong>.
+switch ($w) { 
+      case 1:
+            echo '1';
+            break;
+	default :
+             echo '没有';
+             break;
+}
+//第一种：break  退出循环；第二种 exit 退出程序  ；第三种 continue 退出当前循环
+break;   //退出循环;
+exit;         //直接后面的程序都不执行了
+continue;  //退出此次循环，继续执行
+<strong>7</strong>.
+/*
+ * 转义序列                                         描述
+ *  \n                                          换行符
+ *  \r                                              回车
+ *  \t                                              水平制表图   相当于tab
+ *  \\                                              反斜杠
+ *  \$                                              美元符
+ *  \"                                              双引号
+ */
+错误抑制符@
+<strong>Demo</strong>.  对应章节Baisa2/Demo2.php
+gettype($var);    却得它的类型
+settype($var, $type);  设置它的类型
+isset();  和 unset()用来判断一个变量是否存在
+empty(); 用来判断一个变量是否为空
+换句话说，""、0、"0"、NULL、FALSE、array()、
+    var $var ;(这个是空的变量，只不过写成VAR而已)
+    以及没有任何属性的对象都将被认为是空的
+unset — 释放给定的变量
+isset — 检测变量是否设置
+empty — 检查一个变量是否为空
+	//类型判断函数
+is_integer — is_int() 的别名
+is_int — 检测变量是否是整数
+//可以通过调用一个函数来实现转换变量数据类型的目的
+     * intval()、floatval()、strval();
+<strong>Demo</strong>.  对应章节Baisa2/demo.php
+print — 输出字符串
+printf — 输出格式化字符串
+sprintf — Return a formatted string
+sprintf("保留到内存中");  //返回字符串
+<strong>6</strong>.
+    //超级全局变量
+/*
+ * $GLOBALS        所有全局变量数组
+ * $_SERVER         服务器环境变量数组
+ * $_GET                通过GET方法传递给该脚本的变量数组
+ * $_POST               通过POST方法传递给该脚本的变量数组
+ * $_COOKIE         cookie数组变量
+ * $_FLLES            与文件上载相关的变量数组
+ * $_ENV                环境变量数组
+ * $_REQUEST        所有用户输入的变量数组
+ * $_SESSION        会话变量数组
+ */
+define — 定义一个常量
+除了自定义常量外，PHP还预定了许多常量。了解这些常量的简单方法就是运行phpinfo();命令
+
+
+
+
+应用场景	快捷键	功能
+查看快捷键	ctrl+shift+l	显示所有快捷键列表
+查看和修改快捷键	　	打开Window->Preferences->General->keys
+修改字体字号	　	打开Window->Preferences->General->Appearance->Colors and Fonts，找到Basic->Text Font
+行操作	ctrl+alt+↓	复制当前行到下一行
+ctrl+d	删除当前行
+ctrl+↓	当前行下移一行
+ctrl+↑	当前行上移一行
+end	跳转到当前行末尾
+ctrl+Backspace 	删除光标前一个单词，如前面是符号，就删除一个符号,前面是一个单词就删除一个单词
+alter+→	在编辑过的位置前进
+alter+←	在编辑过的位置后退
+ctrl+home	光标移到文件头
+ctrl+end	光标移到文件尾
+shift+home	选中从光标处到行首的文字
+shift+end	选中从光标处到行末的文字
+ctrl+/（数字键）	收起/展开代码段
+shift+enter	在当前行的下一行插入空行
+ctrl+shift+enter	在当前行的前一行插入空行
+ctrl+Q	定位到最后编辑的地方
+ctrl+shift+X 	当前选中的文本全部变为大写
+ctrl+shift+Y	当前选中的文本全部变为小写
+注释操作	ctrl+/	添加/取消行注释
+ctrl+shift+/	块注释
+ctrl+shift+\	取消块注释
+函数操作	Alt+/	代码提示助手
+ctrl	函数跳转，按住ctrl键，鼠标点击函数名
+Ctrl+Shift+J 	给自定义函数或者方法添加注释
+面向对象操作	ctrl+O	快速大纲, 列出当前文件中的所有变量、函数和方法，对阅读类文件时很有用
+ctrl+shift+M	搜索方法名
+ctrl+T	快速显示当前类的继承结构
+查找操作	ctrl+f	打开本文件的搜索/替换 ，只搜索当前文件
+ctrl+k	查找下一个
+ctrl+shift+k	查找上一个
+ctrl+h	全文检索，打开搜索替换窗口 ，可搜索整个工作空间
+ctrl+l	转到当前文件的某一行
+CTRL+E	搜索编辑器中已打开的文件名
+文件操作	ctrl+w	关闭当前文件
+ctrl+m	当前编辑窗口最大化/还原
+ctrl+N	新建文件
+ctrl+p	打印当前文件
+ALT+ENTER	查看当前文档的属性
+ctrl+F12	打开任务(任务：个人定义某一个特定的工作集,如你要完成一个注册模块，有三个文件config.phpregister.class.php register.php|你可以将这些文件保存成一个任务register ,只要打开register就能同时打开这三个文件| )
+ctrl+F9	激活任务
+ctrl+shift+F9	取消任务
+F11	调试当前文件
+ctrl+F11	运行当前文件
+alt+→	下一个编辑的页面
+alt+←	前一个编辑的页面
+ctrl+shift+E	显示当前打开的所有的文件
+代码格式化	Tab	增加代码缩进
+Shift+Tab	减少代码缩进
+CTRL+SHIFT+F	当前文件代码格式化
+调试快捷键	F5	单步调试进入函数内部（单步进入）
+F6	单步调试不进入函数内部（跳过）
+F7	由函数内部返回到调用处（跳出）
+F8	一直执行到下一个断点
+F9	添加/删除断点 所有代码部分
+F10	逐过程。单步执行调试文件到下一行
+F11	逐语句。单步执行到下一被执行的行
+F12	概要文件URL。打开profile URL对话框
+Shift+F8	添加监视点。打开添加监视点对话框
+Shift+F11	跳出。单步执行到返回后执行的第一行
+Shift+F10	执行代码到光标所在行。
+Ctrl+F5	无中断的执行脚本
+Shift+F5	停止调试器
+Ctrl+Alt+B	在浏览器中显示
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+	 window.onload = function(){
+	 (function () {
+		var htm = document.getElementsByTagName('body')[0];
+		htm.innerHTML = htm.innerHTML.replace(/\n/g,"<br/>").replace(/ /g,'&nbsp;').replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;').replace(/<strong>/g,'----------------------------------------<br/><br/><strong>').replace(/`/g,' ');
+	 })();
+	 (function() {
+	 	var htm = document.getElementsByTagName('a');
+	 	for(var i=0;i<htm.length;i++){
+	 		htm[i].target = '_blank'
+	 		htm[i].href = htm[i].innerHTML
+	 	}
+	 })();
+	 (function() {
+	 	var str = document.getElementsByTagName('strong');
+	 	var mao = document.getElementsByTagName('ul')[0];
+	 	var links = [];
+	 	for(var i=0;i<str.length;i++) {
+	 		var strs = str[i].innerHTML.replace(/&nbsp;/g,'--');
+	 		console.log(strs)
+	 		str[i].id = strs;
+	 		links.push( '<li><a href="#' +strs+ '">'+strs+'</a></li>' );
+	 	}
+	 	links.push('<a class="c" href="#"><u></u></a>'  )
+	 	mao.innerHTML=links/*.reverse()*/.join(' ')
+	 })()
+	}	
+</script>
+</body>
+
+</html>

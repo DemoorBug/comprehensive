@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JQ总结</title>
+<style type="text/css">
+*{padding:0;margin:0;font-size:24px;font-family:'微软雅黑';background:#F7F7FF;}
+script{display:none;}
+body{padding-left:20px;} strong {display:inline-block;padding: 5px 130px;margin: 0 auto;text-align: center;background: #02A2BD;color: #FAFFFA;border: 1px dotted #CCC;}
+i{display:inline-block;font-style:normal;font-weight:bolder;color:red;background:#FFF;padding:5px 6px;}
+b{display:inline-block;font-style:normal;font-weight:bolder;color:green;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;}
+a{display:inline-block;font-style:normal;text-decoration:none;font-weight:bolder;color:blue;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;cursor:pointer;}
+ul{list-style:none;text-align:center;}
+ul li{display:inline-block;}
+ul li a{float:left;font-size:16px;color:green}
+.c{position:fixed;right:50px;bottom:20px;height:50px;width:50px;text-align:center;line-height:40px;border:0;}
+u{display:inline-block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid green;background:none;}
+sup { font-size: 14px; background: none }
+em ,em i,em b{   margin:10px; border-radius: 4px;background-color: #FFF;padding: 10px;font-size: 13px; display: block;font-style: normal;}
+</style>
+
+</head>
+<body>
+<ul></ul>
+<strong style=" ">http://www.jquery123.com/</strong>
+<strong>置顶</strong>
+toggleClass(“class1″)           <i>如果原来没有class1就添加class1，如果原来有class1就移除class1</i>
+attr(“className”,”class1″)     
+addClass(“class1″) .removeClass(“class2″)     <i>addClass 添加class  removeClass(“class2″) 移除</i>
+<b>      移除所有
+$("div").removeClass(function() {
+  	return $(this).attr('class');
+});	
+</b>
+<i>   添加递归元素   index可以获取递增数
+自 jQuery 1.4开始,  .addClass() 方法允许我们通过传递一个用来设置样式类名的函数。
+$("ul li:last").addClass(function(index) {
+  return "item-" + index;
+});
+</i>
+<b>
+	toggle 绑定两个或多个处理程序绑定到匹配的元素，用来执行在交替的点击。
+</b>
+<strong>前面所学 制作鼠标拖拽</strong>4.21  11：31
+<b>
+$.fn.extend({
+drag : function () {
+	var aDiv = 0,
+		cDIv = 0,
+		This = this;
+	this.mousedown(function(ev){
+		aDiv = ev.pageX - $(this).offset().left;
+		cDIv = ev.pageY - $(this).offset().top;
+		$(document).mousemove(function(ev){
+			console.log(aDiv)
+			This.css('left',ev.pageX - aDiv);
+			This.css('top',ev.pageY - cDIv);
+			console.log('s')
+		});
+		$(document).mouseup(function(){
+			$(this).off()
+		})
+		return false;  //不知道有什么用
+	})
+}
+})
+$('#drag').drag()
+</b>
+<strong>$   插件</strong>4.21
+$
+	-$.extend        扩展工具方法下的插件形式  $.xxx()
+	$.extend({
+		leftTime : function(ind){
+			return ind.replace(/^\s+/,'');                    //leftTime为去掉左空格方法
+		}
+	})
+$.fn
+  	-$.fn.extend       扩展到jQ对象下的插件形式   $().xxx()
+<strong>$下的方法</strong>4.21
+ajax() : json形式的配置参数
+-url success
+-error contentType
+-data type
+-dataType cache timeout
+抽象出来的方法
+<i>   参数是一个json形式
+	$.ajax({
+		url : ‘地址’，
+		data : 'name=hell&age=20',
+		type : 'POST',
+		success : function (data) {
+			data 请求成功后返回的一个内容
+			成功后的回调函数
+		},
+		error : function () {
+			失败的回调
+		},
+		contentType : 请求头信息,
+		dataType : 返回数据类型,
+		cache : 是否缓存,
+		timeout : 是否有延迟
+
+	})
+</i>
+-get()
+-post()
+-getJSON()
+<strong>$下的方法</strong>4.20
+<b>$下的方法</b>       不仅可以给jq对象用  还可以用于原生js  <b>工具方法</b>
+type()                 $.type('les');       检测参数类型   更加强大  可以区分[]  data  正则  null
+trim() 				$.trim(' |            les      |'); 去空格   
+inArray()            和indexof 差不多  $.inArray('b',arr)    arr= ['a','b','c']   有的话返回相应位置  没有从头开始数
+proxy()             改变this指向        $.proxy(函数,指向) () 直接可以去执行   $.proxy(函数,指向,参数) (参数) 直接可以去执行
+noConflict()       避免冲突    jquery  == $  别人的库说不定也是使用的这个 为了避免冲突 var miaov = $.noConflict()
+parseJSON()     将字符串 解析为json类型     直接就可以解析ajax数据   $.parseJSON( "{'name':'names'}"  ).name
+makeArray()    把类数组转换为真正的数组    类数组就是 var aDiv = document.getElementsByTagName('div'); 
+这就叫做类数组             $.makeArray(aDiv).push();这样就不会报错了
+
+<strong>动画</strong>4.20
+animate()               //第一个参数是个json  {}  第二个参数时间 第三个参数 运动形式 默认：swing慢快慢   linear匀速    第四个参数回调   可以写链式调用  == 回调函数
+stop()                     停止运动  默认只会知足当前运动   stop(true) 阻止后续运动  第二个参数  直接到达目标点 
+<i>finish() 立即停止到你所有你指定的目标点</i>
+delay()                   延迟  参数秒算起
+delegate()             事件委托    
+<b>
+$('ul').delegate('li','click',function(){
+		$(this).css('background','red');
+})
+</b>
+undelegate()          $('ul').undelegate()  阻止事件委托
+trigger()                   //主动触发    $('ul').delegate('li','click',function(){alert('w')})    <i>$('ul').trigger('click');</i>
+ev.data                 
+ev.target
+ev.type
+<b>
+on('click',{name:'hello'},function(ev){
+	ev.data  就是这个json {name:'hello'} 这个整体
+	ev.data.name          ==  'hello'
+	ev.target   当前事件源  我操作的是谁
+	ev.type  当前操作的事件类型
+})
+</b>
+<strong>DOM操作</strong>4.20
+parents()                //当前操作节点的所有祖先节点，参数筛选功能
+closest()                //获取最近指定的祖先节点(包含当前元素自身)，必须要写筛选的参数
+siblings()               //获得所有的兄弟节点   有参数，筛选功能
+nextAll()                 //下面所有的兄弟节点
+prevAll()                 //上面所有的兄弟节点
+parentsUntil()         //  <b>Until 截止的意思</b>        所有祖先节点 指定位置
+nextUntil()             //截止到你指定的位置 就不会继续了  <i>当然是填写参数</i>
+prevUntil()         
+clone()                  可以接受一个参数，作用复制之前的操作行为    参数为<b>布尔值</b>
+ //$(div).clone().appendTo( $('span') );  //这个属性用于复制节点
+wrap()                  包装       $('span').wrap('< div >');    给span元素包装div
+wrapAll()               整体包装   将集合中的元素 外围整体嵌套一个div  <i>元素不在一起 将元素剪贴过来 更改DOM节点</i>
+wrapInner()         内部包装     div添加到了span 节点里
+unwrap()               删除包装  删除父级
+add()                     将元素组合到一起  进行后续操作   $(div).add('span').css('background','red')  两个元素都更改        
+slice()                     选取的意思  有一组集合   $(div).slice(2,5) 第二个到第四个
+serialize()            <b>可以将input    Name  Value  穿连到一起  有助于数据提交 get post</b>
+serializeArray()      <i>还可以直接转换为数组形式</i>
+<strong>项目中应用</strong>
+siblings()   获得匹配元素集合中每个元素的兄弟元素,可以提供一个可选的选择器。。
+animate()   根据一组 CSS 属性，执行自定义动画。
+size()     length == size()
+.parent() 取得匹配元素集合中，每个元素的父元素，可以提供一个可选的选择器。
+toggleClass()  在匹配的元素集合中的每个元素上添加或删除一个或多个样式类,取决于这个样式类是否存在或值切换属性。即：如果存在（不存在）就删除（添加）一个类。
+.stop()  停止匹配元素当前正在运行的动画。
+.fadeIn() 通过淡入的方式显示匹配元素。
+.children()   获得匹配元素集合中每个元素的子元素，选择器选择性筛选。
+.contents()  获得匹配元素集合中每个元素的子元素，包括文字和注释节点。
+<strong>基础篇</strong>:
+get()  :  下标和length属性      <i>就是把jq转换为原生的js</i>    <b>$('div').get(0).innerHTML </b>
+outerWidth() : 针对隐藏元素和参数true    <b>可以获取隐藏元素的 width height</b>
+text() :   合体的特例        <i>和html()区别在于 只能获取文本 不能获取标签</i>
+remove() : detach()           <b>var oDiv = remove() 删除所有操作  $('body').append(oDiv)进行恢复 也是无法完成的   detach() 删除了 但是它保留了所有操作</b>
+$() : $(document).ready()
+
+<strong>17</strong>:
+$()方法
+hover()            <i>hover 移入的效果 模拟css中的hover   两个参数 移入移出</i>  
+show()             <b>隐藏    传参  时间参数</b>    改变高和display
+hide() 		    <i>显示</i>
+fadeIn() 		<b>淡入  同意有时间 默认400</b>
+fadeOut() 		<i>淡出</i>       $('div').fadeOut(500);          改变透明度
+fadeTo()            <b>半透明</b>  fadeTo(900,.5,function(){alert('d') }
+slideDown() 	<i>向下展开</i>
+slideUp() 	     <b>向上卷曲</b>
+<strong>13</strong>:
+<b> jq 中的 禁止右击
+	$(document).ready(function(){
+		    $(document).bind("contextmenu",function(e){
+		        return false;      //即阻止冒泡，又阻止默认事件
+		    });
+		});
+</b>
+$()常用方法
+ev 	      	<i>//鼠标事件 event对象</i>
+pageX 		 <b>ev.pageX     获取当前鼠标位置</b>
+which          <i>键盘键值</i>
+preventDefault             <b>阻止默认事件</b>
+stopPropagetion 		<i>阻止冒泡</i>
+one()                           <b>事件执行一次</b>
+offset() 					<i>$('div').offset().top;  获得元素距离屏幕的左距离</i> 算margin
+position() 					<b>从定位后算起  父元素设置定位  就从父元素算起</b> 
+offsetParent() 			<i>获取有定位的父级</i>
+val() 						<b>获取val值  加参数后== 修改</b>
+size() 					<i>类似于length  获取长度</i>
+each()  					<b>就是jq中的循环</b>
+<i>
+	$('li').each(function (i,value) {
+			alert(i +'--'+ $(value).html());
+		})
+</i>
+<b>   拖拽
+$(document).ready(function () {
+		var disx = 0;
+		var disy = 0;
+	$('div').mousedown(function (ev) {
+		disx = ev.pageX - $(this).offset().left ;
+		disy = ev.pageY - $(this).offset().top ;
+
+		$(document).mousemove(function (ev) {
+			$('div').css('left',ev.pageX - disx);
+			$('div').css('top',ev.pageY - disy);
+		})
+		$(document).mouseup(function (ev) {
+			$(document).off();
+		})
+		return false;
+	})
+})	
+</b>
+<strong>12</strong>:
+弹窗
+<i>如何创建一个DIV </i> $('<div>')  这样就是创建
+<b>滚动条事件和窗口调整事件  onresize  onscroll</b>
+<strong>9</strong>:
+$() 常用方法
+addClass()                       添加样式
+removeClass() 				删除样式
+width() 						实际 width 没有单位  只能获得原始宽     <i> windth </i>
+innerWidth() 				    不能获得border 宽                                <b>windth + padding </b>
+outerWidth() 				可以获得所有属性 总和起来的宽     给个参数true 就能获得 <i>windth + padding + border + margin</i>
+<b> /*---------------------jq中的节点操作-----------------------*/ </b>
+insertBefore() 				节点操作  讲一个点 移动到一个节点前
+                              <i>$('span').insertBefore( $('div') ) ;                  将 div  移动到 span前</i>
+before()
+					<b> $('span').before( $('div') ) ;   span前面必须是div       也是调换位置</b>       
+inserAfter()
+					<i>$('span').inserAfter( $('div') ); 	将div移动到 span 后</i>      
+after()
+					<b>和  before() 类似</b>
+appendTo()                       添加到一个指定节点的最后
+					<i>$('div').appendTo( $('span') );  这样就将  div 放置在span里最后的位置</i>
+append()
+					<b>和  before() 类似</b>
+prependTo()
+					<i>$('div').prependTo( $('span') );   div 放置在span里开始的位置</i>
+prepend()                    
+						<b>和  before() 类似</b>        
+ <b> /*--------------------------------------------*/ </b>
+remove() 		      <i>删除节点</i>
+on()                              <b>这个就是事件了   click()  == on('click',function(){})</b>  更加强大 可以自定义事件 <b>还可以继续添加其他事件 空格隔开 简直6</b>
+<i>   				G森形式   (不知道是什么东东)localstorage
+							$('div').on(
+								'click' : function () {
+									alert('123');
+								},
+								'mouseover' : function () {
+									alert('456');
+								}
+							)
+</i>
+$(this).off() 					<b>这个就是 关闭点击事件     也是可以传参的  关闭指定事件</b>	
+scrollTop()                    <i>滚动距离</i>
+<strong>5</strong>:
+$()下的常用方法
+has()           包含意思     $('div').has('span').css('bakcground','red');    //div中包含span 变红
+not()              filter 反义词
+filter()            过滤
+next()              下一个兄弟节点
+prev()             上一个兄弟节点
+find()           查找的意思
+eq()      				eq二联     饿 其实 相当于  js中的下标   
+index()          索引      当前元素在所有兄弟节点中的位置
+attr()                                 <i>设置属性  后面会说和其他有什么不同proper deta</i>
+<strong>2</strong>:
+<i>API</i>
+$('li:first').css('background','red');                   <i>//第一个</i> first
+<i>$('li:last').css('background','red'); </i>		//最后一个  last
+$('li:eq(2)').css('background','red');     	<i>//选择第二个</i>  eq(2)
+<i>$('li:even').css('background','red');</i>        //奇数行
+$('li:odd').css('background','red');       <i>//偶数行</i> 
+<i>$('li').filter('.box')</i>                //过滤				 筛选元素集合中匹配表达式 或 通过传递函数测试的 那些元素集合。
+$('li').filter('[title = href]')                   <i>//筛选出'[title = href]''   title = href的</i>
+<i>innerHTML == html()</i>
+									<i>onclick  == click()</i>
+<i>$(this)</i>
+
+<script>
+	 window.onload = function(){
+	 (function () {
+		var htm = document.getElementsByTagName('body')[0];
+		htm.innerHTML = htm.innerHTML.replace(/\n/g,"<br/>").replace(/ /g,'&nbsp;').replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;').replace(/<strong>/g,'----------------------------------------<br/><br/><strong>').replace(/`/g,' ');
+	 })();
+	 (function() {
+	 	var htm = document.getElementsByTagName('a');
+	 	for(var i=0;i<htm.length;i++){
+	 		htm[i].target = '_blank'
+	 		htm[i].href = htm[i].innerHTML
+	 	}
+	 })();
+	 (function() {
+	 	var str = document.getElementsByTagName('strong');
+	 	var mao = document.getElementsByTagName('ul')[0];
+	 	var links = [];
+	 	for(var i=0;i<str.length;i++) {
+	 		var strs = str[i].innerHTML.replace(/&nbsp;/g,'--');
+	 		console.log(strs)
+	 		str[i].id = strs;
+	 		links.push( '<li><a href="#' +strs+ '">'+strs+'</a></li>' );
+	 	}
+	 	links.push('<a class="c" href="#"><u></u></a>'  )
+	 	mao.innerHTML=links/*.reverse()*/.join(' ')
+	 })()
+	}	
+</script>
+</body>
+</html>

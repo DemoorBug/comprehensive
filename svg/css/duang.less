@@ -1,0 +1,17 @@
+h1{
+	color:red;
+}
+.sound-content {
+	path {
+		fill:white;
+		stroke:red;
+		stroke-dasharray:1200;
+		stroke-dashoffset: -1200;
+		transition: .5s
+	}
+		&:hover {
+			path {
+				stroke-dashoffset: 10;
+			}
+		}
+	}

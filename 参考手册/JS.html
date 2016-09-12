@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>JS总结</title>
+<style type="text/css">
+*{padding:0;margin:0;font-size:24px;font-family:'微软雅黑';background:#F7F7FF;}
+script{display:none;}
+body{padding-left:20px;} strong {display:inline-block;padding: 5px 130px;margin: 0 auto;text-align: center;background: #02A2BD;color: #FAFFFA;border: 1px dotted #CCC;}
+i{display:inline-block;font-style:normal;font-weight:bolder;color:red;background:#FFF;padding:5px 6px;}
+b{display:inline-block;font-style:normal;font-weight:bolder;color:green;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;}
+a{display:inline-block;font-style:normal;text-decoration:none;font-weight:bolder;color:blue;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;cursor:pointer;}
+ul{list-style:none;text-align:center;}
+ul li{display:inline-block;}
+ul li a{float:left;font-size:16px;color:green}
+.c{position:fixed;right:50px;bottom:20px;height:50px;width:50px;text-align:center;line-height:40px;border:0;}
+u{display:inline-block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid green;background:none;}
+sup { font-size: 14px; background: none }
+em ,em i,em b{   margin:10px; border-radius: 4px;background-color: #FFF;padding: 10px;font-size: 13px; display: block;font-style: normal;}
+</style>
+</head>
+<body>
+<ul></ul>
+<strong>错误处理与调用3</strong>:1.23
+console.error('错误');           
+console.info('错误');
+						这个和alert的区别就是不会终止代码的执行，方便调试
+console.log('错误');
+console.warn('错误');
+throw new Error('num2必须是数字');//这样就抛出了 //抛出错误
+<strong>错误处理与调用1</strong>:1.21
+错误类型   7种
+		1.Error
+		2.EvalError
+		3.RangeError
+		4.ReferenceError
+		5.SyntaxError
+		6.TypeError
+		7.URILError
+new Array(-5)			//抛出 RangeError (范围)
+		错误信息为:RangeError:invalid array length (无效的数组长度)
+		PS：RangeError 错误一般在数值超出相应范围时触发
+
+		var box = a; 			//抛出ReferenceError(引用)
+		错误信息为：ReferenceError: a is not defined (a是没有定义的)
+		PS:ReferenceError 通常访问不存在的变量产生这种错误
+
+		a$b; 					//抛出SyntaxError(语法)
+		错误信息为：SyntaxError:missing ; before statement(失踪;语句之前)
+		PS: SyntaxError 通常是语法错误导致的
+
+		new 10 ; 				//抛出TypeError(类型)
+		错误信息为：TypeError: 10 is not a constructor (10 不是一个构造函数)
+		PS:typeError 通常是类型不匹配导致的
+
+		PS:EvalError 类型表示全局函数eval()的使用方式与定义的不同时抛出，但实际上并不能产生这个错误，所以实际上碰到的可能性不大。
+		PS:在使用encodeURI()和decodeURI() 时，如果URI格式不正确时，会导致URIError错误。但因为URI的兼容性非常强，导致这种错误几乎不见
+try catch finally//有案例
+<strong>表单处理5</strong>:1.20
+后面有两个单选和复选按钮 checked 属性来获取单选按钮的值
+input text 一样的用法
+html dom 兼容性非常好 不建议使用标准dom
+options[0].firstChild.nodeValue
+onchange — 域的内容被改变
+selectedIndex — 设置或返回下拉列表中被选项目的索引号
+selected — 设置或返回 selected 属性的值
+select对象
+option对象
+标准DOM添加
+Option 构造函数添加
+删除
+向右添加
+element.insertBefore() 在指定的已有的子节点之前插入新节点 //移动
+<strong>表单处理4</strong>:1.20
+过滤输入模式：
+		1：禁止或屏蔽非数字键的输入，阻止非数字键的默认行为
+		2：验证后取消，你可以先输入非法字符，然后判断后，取消你刚输入的文本
+/*阻止裁剪、复制、剪贴
+				事件名					说明
+				copy				在发生复制操作时触发
+				cut					在发送裁剪操作时触发
+				paste				在发生粘贴操作时触发
+				beforecopy			中发生复制操作前触发
+				beforecut			在发生裁剪操作前触发
+				beforepaste			在发生粘贴操作前触发
+
+		*/
+<strong>表单处理3</strong>:1.19
+select() 选中文本
+选中部分文本
+<strong>表单处理2</strong>:1.19
+阻止重复提交
+阻止键盘提交
+阻止冒泡机制
+表单控件集合
+将焦点移入
+将焦点移出
+鼠标移入
+<strong>表单处理</strong>:1.18
+获取表单各种方法 
+阻止提交
+可以让非submit按钮提交表单
+回车实现提交
+<strong>事件绑定及深入下</strong>:1.17
+跨浏览器添加事件
+跨浏览器移除事件
+禁止右击菜单
+卸载前事件
+滚轮事件
+<strong>事件绑定及深入中</strong>:1.17
+捕获验证
+事件处理函数
+兼容IE写法
+<strong>事件绑定及深入上</strong>:1.16
+可以很清楚的了解现代事件的原理分析
+<strong>事件对象下</strong>:1.16
+键码
+字符编码
+这就是所说的冒泡流
+面写法为了让IE 和 其他浏览器取消冒泡机制
+onkeypress 配合键盘字符使用
+兼容所有浏览器都支持字符按键
+<strong>事件对象</strong>:1.15
+这个函数被onclick绑定了，所以它里面的this代表document
+如果是事件处理函数绑定的函数，浏览器会默认传递一个参数，这个参数就是event对象
+alert(arguments[0]);      //MouseEvent  鼠标事件对象
+window.event
+y x是基于浏览器窗口的左上角
+这里获取到的Y 呢是， 是鼠标点击位置所距顶部高度可以将我的好多东西改进
+测试点击了哪些按键
+跨浏览器鼠标按钮
+检测点击了哪些键 并返回相应键位字符串
+<strong>事件入门</strong>:1.15
+事件处理函数
+javascript 可以处理的事件类型为：鼠标事件、键盘事件、HTML事件
+onclick   用鼠标处理的，所以归类到鼠标事件
+<strong>动态加载样式和脚本</strong>:1.14
+动态加载脚本文件
+动态执行js代码  //其实就是动态去创建一个< script>< /script>
+<strong>DOM元素尺寸和位置下</strong>:1.14
+scrollWidth 和 scrollHeight
+这组属性可以获取滚动内容的元素大小;
+当前元素距离父元素的高度  //很是需要
+方法为算出深层嵌套元素距离顶部距离的一个方法，用到了递归，感觉没有用到啊
+<strong>DOM元素尺寸和位置上</strong>:1.13
+二元运算符
+padding 调整可看到
+滚动条 调整可看到
+<strong>DOM操作表格及样式4</strong>:1.12
+简要概括:  三种操作css的方法，第一种style行内，可读可写；第二种行为，内联和链接，使用getComputedStyle 或currentStyle(驻留在计算后样式)，可读不可写；第三种cssRules或rules，内联和链接可读可写
+<strong>DOM操作表格及样式3</strong>:1.11
+简要概括:  操作css样式表，及如何读取内联 链接样式表 (计算后的样式)
+追加一个class
+移除class
+<strong>DOM操作表格及样式2</strong>:1.11
+简要概括:  操作css样式表，及如何读取内联 链接样式表 (计算后的样式)
+计算后的样式
+border属性是一个综合属性
+alert(style.borderRightColor); //这样是可以的滴
+<strong>DOM操作表格及样式1</strong>:1.10
+使用DOM创建一个表格
+使用DOM去获取表格数据  //这种做法很不清晰 
+使用HTML DOM  //方便简单
+rows 获取所有tr集合 cells获取td集合
+当没有别的创建方法的时候 可以自己模拟
+<strong>DOM进阶下</strong>:1.08
+//呈现模式，非为标准模式和混杂模式(怪异模式)
+//可见 这个牛B啊
+/*
+// document.getElementById('oi').scrollIntoView();//将指定的节点滚动到可见的范围内  chrome只能进入执行，刷新不管用
+*/
+contains()方法 判断一个节点是不是另一个节点的后代 火狐旧版本不支持3.6一下的
+在firefox的DOM3级实现中提供了一个替代方法compareDocumentPosition()方法
+DOM操作内容
+主要学习：innerText、innerHTML、outerText和outerHTML等属性。
+除了innerHTML   其他不建议使用
+为兼容低版本火狐所封装的方法
+/*
+虽然在63行执行，但是呢他先读取到这个函数就将其储存在内部了，63行执行这个预先被储存的函数就会出现未定义，当然这是自己的理解，老师前面的我去找找
+			//找不到了。。百度看看
+*/
+<strong>DOM5</strong>:1.04
+/*节点操作
+			DOM不单单可以查找节点，也可以创建节点、复制节点、插入节点、删除节点、和替换节点。
+										节点操作方法
+				方法									说明
+				write();						这个方法可以把任意字符串插入到文档中
+			createElmeent()							创建一个元素节点
+			 appendChild()					将新节点追加到子节点列表的末尾
+			createTextNode()							创建一个文件节点
+			  insertBefore()								将新节点插入在前面
+			  repalceChild()								将新节点替换旧节点
+			    cloneNode()									复制节点
+			    removeChild()								移除节点
+//元素节点类型值1、属性节点类型值是2、文本类型的值是3
+		*/
+<strong>DOM进阶上</strong>:1.04
+/*
+									DOM类型
+	类型名									说明
+	 Node					表示所有类型值的统一接口，IE不支持
+	Document							表示文档类型
+	Element						   表示元素节点类型
+	 Text 							   表示文本节点类型
+	Comment 						   表示文档中的注释类型
+	CDATASection  				   表示CDATA区域类型
+	DocumentType 					   表示文档声明类型
+	DocumentFragment 			   表示文档片段节点
+		      	 Attr 							   表示属性节点类型
+*/
+document中有一些遗留的属性和对象集合，可以快速的帮助我们精确的处理一下任务
+//属性
+	document.title;                     //获取和设置< title>< /title>标签的值
+	document.URL; 			//获取URL路径
+	document.domain;			//获取域名，服务器端
+	document.referrer;   		//
+//对象集合
+	document.anchors;			//获取文档中带name属性的< a>元素集合
+	document.links;			//获取文档中带href属性的< a>元素集合
+	document.applets;			//获取文档中<spplet>元素集合，已不用
+	document.forms;			//获取文档中<form>元素集合
+	document.images;			//获取文档中<img>元素集合*/
+//Element类型
+	/*Element类型用于表现HTML中的元素节点。在DOM基础那章，我们已经可以堆元素节点进行查找、创建等操作，元素节点的nodeType为1，nodeName为元素标签名。
+	元素节点对象在非ie浏览器可以返回它具体节点的文档的对象类型
+							元素对应类型表
+		元素名 										类型
+		HTML 								HTMLHtmlElement
+		 DIV 									HTMLDivElement
+		BODY 								HTMLBodyElement
+		   P 								HTMLParamElement
+
+	ps:以上给出了部分对应，更多的元素对应类型，直接访问调用即可*/
+
+text方法
+Comment类型
+Comment类型表示文档中的注释。nodeType是8，nodeName是#comment,nodeValue是注释的内容。
+<strong>DOM基础4</strong>:12.30
+节点的层次结构可以划分为：父节点与子节点、兄弟节点这两种。当我们获取其中一个元素节点的时候，就可以使用层次节点属性来获取它相关的节点
+								层次节点属性
+			属性
+		childNodes				获取当前元素节点的所有子节点
+		firstChild				获取当前元素节点的第一个子节点
+		lastChild				获取当前元素节点的最后一个子节点
+	ownerDocument			获取该节点的文档根节点，相当于document
+	     parentNode				获取当前节点的父节点
+	   previousSibling			获取当前节点的前一个同级节点
+	      nextSibling				获取当前节点的后一个同级节点
+	       attributes				获取当前元素节点的所有属性节点集合
+*/
+移除空白字符
+忽略空白字符
+//元素节点类型值1、属性节点类型值是2、文本类型的值是3，这个是元素节点  
+<strong>DOM基础3</strong>:12.29
+简要概括: 元素节点类型值1、属性节点类型值是2、文本类型的值是3，这个是元素节点  
+在获取到文本节点的时候，是无法使用innerHTML这个属性输出文本内容的。这个非标准的属性必须在获取元素节点的时候，才能输出里面包含的文本
+把html元素转换为纯文本， 将<>转换为特殊字符
+<strong>DOM基础2</strong>:12.28
+	DOM基础 用法
+<strong>DOM基础</strong>:12.28
+方法										说明
+		getElementById()						获取特点的元素节点
+	getElementsByTagName()					获取相同元素的节点列表
+		getElementsByName()					获取相同名称的节点列表
+		getAttribute()							获取特定元素节点属性的值
+		setAttribute()							设置特定元素节点属性的值
+		removeAttribbute()						移除特定元素节点属性
+
+解决无法获取id节点
+1.将script移动到页面尾部
+2.利用onload事件 ，来加载HTML
+/*				元素节点属性
+		属性 							说明
+	tagName 							获取元素节点的标签名
+	innerHTML					获取元素节点里的内容，非W3C DOM规范
+	innerHTML  获取的是这个元素的文本内容，而不是文本节点
+
+					HTML属性的属性
+		属性  							说明
+	    id                                              元素节点的id名称
+	    title                                    	   元素节点title属性值
+	    style 							   CSS内联样式属性值
+	    className   					Css元素的类
+*/
+<strong>浏览器检测下</strong>:12.27
+简要概括:这一章节最后有获取本机windows对应系统，有需要可以查看
+<strong>了解知识</strong>:12.27
+1.JS,CSS基础   一定的
+	2.Sass,Compass  了解
+	3.Yeoman,Grunt,Webpack   前端自动化方案有所了解
+	4.CommonJs,NodeJs  堆CommonJs略知一二，最好写过Nodejs
+	5.Git,GitHub   会用
+
+	不管知识有多新，项目有多难，只要来了什么姿势你都得上
+	团队中没人能帮自己，所以要学会借助外力，看视频呀，去google呀，参与开源项目(不懂)，
+	第三积极要求进步
+<strong>浏览器检测中</strong>:12.24
+客户端检测一共分为三种，分别是	：能力检测、怪癖检测和用户代理检测，通过这三种检测方案，我们可以充分的了解当前浏览器所处系统、所支持语法、所具有的特殊功能
+
+<i>书上有遗漏问题</i>和本章节无任何联系 简略：
+var in1 = {
+		toString : function (){
+			return 'hi';
+		},
+		toLocaleString : function  () {
+			return 'ij';
+		}
+	}
+<i>--------------</i>
+<strong>浏览器检测</strong>:12.24
+navigator对象是window对象下的
+浏览器嗅探器
+浏览器嗅探器是一段程序，有了它，浏览器检测就变得简单了。我们这里提供browserdetect.js,
+用于判断浏览器的名称、版本号及操作系统
+跨浏览器检测Flash是否存在
+MIME类型
+MIME是指多用途因特网邮件扩展。它是通过因特网发送邮件消息的标准格式。现在被用于在因特网中交换各种类型的文件。
+后面两节课呢，就是自己写一个嗅探器
+<strong>BOM下，间歇调用，超时调用</strong>:12.23
+<i>间歇调用和超时调用</i>
+	//javascript是单线程语言，但它允许通过设置超时和间歇时间值来调度代码在特定的时刻执行。前者在指定的时间过后执行代码，而后者则是每隔指定的时间就执行一次代码
+超时调用需要使用window对象的setTimeout()方法，它接收两个参数：要执行的代码和毫秒数的超时时间。
+<i>location对象</i>
+location是BOM对象之一，它提供了与当前窗口中加载的文档有关信息，还提供了一些导航功能。事实上，location对象是window对象的属性，也是document对象的属性；所以window.location 和 document.lcation有效
+alert(ag['ip']);        //简直666  可以动态获取?后面的值
+在Web开发中，我们经常需要获取诸如?id=5 & search=ok 这种类型的URL的键值对，那么通过location,我们可以写一个函数，来一一获取*/
+	// location.reload();   //最有效的重新加载，有可能从缓存加载
+	// location.reload(true);   //强制加载 从服务器源头重新加载
+	//location.replace('http://www.baidu.com');  //可以避免产生跳转前的历史记录
+	//location 就到此结束了
+<i>history对象</i>
+<strong>BOM中</strong>:12.22
+简要概括：还是window对象，上一节是window窗口，这一讲讲了获取页面边框、判断是否标准模式、把一些属性判断一下，变为性能高且实用性强的
+<i>3元运算符 </i>
+alert(innerWidth);		//页面长度
+alert(document.compatMode);  //判断是否是标准模式
+下一节刚刚看到了，间隙调用之类的，哇塞，这个用处多啊
+<strong>BOM上</strong>:12.21
+简要概括：BOM     ，窗口
+<i>所有东西都是widow 的对象和属性</i>
+open
+<strong>匿名函数和闭包下</strong>:12.18
+简要概括：模仿块级作用域，使用块级作用域(私有作用域)，模块模式
+模仿块级作用域
+	Javascript没有块级作用域概念
+JavaScript 不会提醒你是否多次声明同一个变量；遇到这种情况，它只会对后续的声明视而不见(如果初始化了，当然还会执行的)。使用模仿块级作用域可避免这个问题	。
+使用块级作用域(私有作用域)
+<i>私有作用域 代替了全局，防止全局到处使用，防止污染</i>
+
+<i>闭包就是在函数中创建一个内部函数   
+	引用呢， 例如函数function a(){   return function(){}}  var c = a();   这里c的指针就指向了a()返回的匿名函数。
+	作用域链呢，就是当你创建一个函数时，作用域链填入全局对象(全局对象中有所有全局变量),如果执行环境是函数，那么将其称为活动对象，作为作用域链第一个对象，第二对象是包含环境，下一个以此类推</i>
+<strong>困扰之作用域链，闭包</strong>:12.18
+	<i>这里收集了很多网上的讲解</i>
+<strong>匿名函数和闭包中</strong>:12.15
+简要概括：我及时执行,驻留在内存中,闭包this对象作用域问题,内存泄漏
+作用域链的机制导致一个问题，在循环中的匿名函数取得的任何变量都是最后一个值
+<i>因为闭包可以将变量驻留在内存中，和上一节课的累加是一个道理</i>
+<i>闭包this对象作用域问题 这里指向window</i>
+<i>内存泄漏</i>一直不懂
+<strong>匿名函数和闭包上</strong>:12.14
+简要概括：匿名函数,闭包
+<i>匿名函数就是没有名字的函数，闭包是可访问一个函数作用域里变量的函数。</i>
+<i>自我执行匿名函数的传参</i>
+<i>使用匿名函数实现局部变量驻留内存中从而累加</i>
+指向匿名函数的引用             //因为每次调用的都是匿名函数，没有调用box从而没有初始化
+<i>由于闭包里作用域返回的局部变量资源不会被立刻销毁回收，所以可能会占用更多内存。过度使用闭包会导致性能下降，建议在非常有必要的时候才使用闭包</i>
+<strong>面向对象总结</strong>:12.14
+简要概括：前面面向对象总结
+<strong>面向对象7</strong>:12.11
+简要概括：还有几种另类的继承方式，//组合式继承
+第四种：原型式继承
+临时中转函数
+5.寄生式继承 == 原型式+工厂模式
+寄生式组合继承
+通过寄生组合继续来实现继承
+<strong>面向对象6</strong>:12.11
+简要概括：继承
+		其他正统面向对象语言都会用两种方式去实现继承，一个接口实现，一个是继承，而ECMA中只支持继承，不支持接口实现，而实现继承的方式依靠原型链完成
+		原型链继承
+		从属关系
+		原型链+借用构造函数的模式
+		1.原型式继承
+		2.借用构造函数继承(对象冒充继承)
+		3.组合继承(结合前两种)
+
+在js中被继承的函数称为超类型(父类，基类也行，其他语言叫法)，继承的函数称为类型(子类，派生类)
+new Box()给它什么了呢？会将Box构造函数里的信息和原型里的信息都交给Desk
+从属关系
+子类型从属于自己或者他的超类型
+alert(box instanceof Object);
+<strong>面向对象5</strong>:12.10
+简要概括：构造函数+原型模式    封装     动态原型模式  字面量
+		原来构造函数和原型之间只是一个联系，而不是==同 
+<strong>面向对象4</strong>:12.09
+简要概括：原型字面量方式，字面量指向问题，最后有扩展
+<strong>面向对象3</strong>:12.08
+简要概括：prototype(原型)
+<strong>面向对象2</strong>:12.08
+简要概括：对象冒充，构造函数，工厂实例化
+<strong>面向对象1</strong>:12.07
+<i>this表示new Object()实例化出来的那个对象</i>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+	 window.onload = function(){
+	 (function () {
+		var htm = document.getElementsByTagName('body')[0];
+		htm.innerHTML = htm.innerHTML.replace(/\n/g,"<br/>").replace(/ /g,'&nbsp;').replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;').replace(/<strong>/g,'----------------------------------------<br/><br/><strong>').replace(/`/g,' ');
+	 })();
+	 (function() {
+	 	var htm = document.getElementsByTagName('a');
+	 	for(var i=0;i<htm.length;i++){
+	 		htm[i].target = '_blank'
+	 		htm[i].href = htm[i].innerHTML
+	 	}
+	 })();
+	 (function() {
+	 	var str = document.getElementsByTagName('strong');
+	 	var mao = document.getElementsByTagName('ul')[0];
+	 	var links = [];
+	 	for(var i=0;i<str.length;i++) {
+	 		var strs = str[i].innerHTML.replace(/&nbsp;/g,'--');
+	 		console.log(strs)
+	 		str[i].id = strs;
+	 		links.push( '<li><a href="#' +strs+ '">'+strs+'</a></li>' );
+	 	}
+	 	links.push('<a class="c" href="#"><u></u></a>'  )
+	 	mao.innerHTML=links/*.reverse()*/.join(' ')
+	 })()
+	}	
+</script>
+
+</body>
+</html>

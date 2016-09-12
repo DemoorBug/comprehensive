@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>CSS 既 html 标签收集</title>
+<style type="text/css">
+*{padding:0;margin:0;font-size:24px;font-family:'微软雅黑';background:#F7F7FF;}
+script{display:none;}
+body{padding-left:20px;} strong {display:inline-block;padding: 5px 130px;margin: 0 auto;text-align: center;background: #02A2BD;color: #FAFFFA;border: 1px dotted #CCC;}
+i{display:inline-block;font-style:normal;font-weight:bolder;color:red;background:#FFF;padding:5px 6px;}
+b{display:inline-block;font-style:normal;font-weight:bolder;color:green;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;}
+a{display:inline-block;font-style:normal;text-decoration:none;font-weight:bolder;color:blue;background:#FFF;margin:5px 0;padding:5px 6px;border-top:1px dotted #CCC;border-bottom:1px dotted #CCC;cursor:pointer;}
+ul{list-style:none;text-align:center;}
+ul li{display:inline-block;}
+ul li a{float:left;font-size:16px;color:green}
+.c{position:fixed;right:50px;bottom:20px;height:50px;width:50px;text-align:center;line-height:40px;border:0;}
+u{display:inline-block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid green;background:none;}
+sup { font-size: 14px; background: none }
+em ,em i,em b{   margin:10px; border-radius: 4px;background-color: #FFF;padding: 10px;font-size: 13px; display: block;font-style: normal;}
+</style>
+
+</head>
+<body>
+<ul></ul>
+<strong>置顶</strong>
+W3C标准(1.1)  http://www.w3.org/TR/SVG11
+浏览器支持情况 http://caniuse.com/#cats=svg
+<i>ie margin-right 有双margin  bug  display: inline;解决 </i>
+<strong>Node.js收集</strong>
+<a>http://www.nodebeginner.org/index-zh-cn.html#javascript-and-nodejs</a>
+<b>事件驱动的回调</b>
+
+<strong>电商网站收集</strong>
+<b>
+	<i>font:italic small-caps bold 12px/1.5em arial,verdana; </i>
+等效于： 
+font-style:italic; 
+font-variant:small-caps; 
+font-weight:bold; 
+font-size:12px; 
+line-height:1.5em; 
+font-family:arial,verdana; 
+顺序：font-style | font-variant | font-weight | font-size | line-height | font-family 
+（注：简写时，font-size和line-height只能通过斜杠/组成一个值，不能分开写。） 
+不过使用这种简写需要注意几点：要使简写定义有效必须至少提供 font-size 和 font-family 这两个属性 ；同时font-weight, font-style 以及 font-varient 这几个属性如果不做设定的话将默认为normal。
+</b>
+<b>
+	& copy; == ©
+	gt; == >
+	lt; == <
+</b>
+<b>input的背景需要清楚none </b>
+<b>line-height: 35px\9;</b>  所有IE浏览器
+<i>css hack</i>  好多地方都有提到
+<b>IE 最小高度20 overflow: hidden解决</b>
+<b>IE 百分比宽度不精确  可以用 *width:49.9% 类似方案解决</b>
+<b>都给border-bottom  的话  IE会撑出  margin-bottom : -1px; position:relative;提升层级</b>
+<b>元素撑到下一个位置的时候  可以考虑设置高度来解决</b>
+<strong>走进svg</strong>
+<b>基本API</b>
+创建图像
+documen.createElementNS(ns,tagName);
+添加图像
+element.appendChild(childElement)
+设置/获取属性
+element.setAttribute(name,value)
+element.getAttribute(name)
+<i>rx圆角半径 cx横坐标 </i>
+< rect >、  x  y   width height rx ry   这个属性画矩形
+< circle >、 cx cy r      r
+< ellipse >、 cx cy rx ry    椭圆
+< line >、    x1 y1 x2 y2 直线
+< polyline >、 x1,y1 x2,y2 ... 折现      points="x1 y1 x2 y2 x3 y3"
+< polygon >    多边形  就是讲最后第一个点和 起始点连接
+基本属性
+fill、stroke、stroke-width、transform
+<strong>2016.4.19</strong>
+transform: scale(0.3);   这个是放大效果
+transform-origin: center;
+transition-delay: 0;  延迟 很有用
+<strong>2016.4.18</strong>
+autoprefixer  一个库
+lessc --source-map ***.less ***.css  绑定文件 更好找到less编译后的css
+wr --exec "lessc --source-map ***.less ***.css" ***.less  当less 更改后执行该命令  --exec有待研究
+<a>https://www.npmjs.com/package/wr</a> 参考网站
+<strong>svg 气泡学习</strong>2016.4.15
+outline css样式（轮廓）是绘制于元素周围的一条线，位于边框边缘的外围，可起到突出元素的作用。
+article   html5标签 
+<i>< article> 标签规定独立的自包含内容。
+一篇文章应有其自身的意义，应该有可能独立于站点的其余部分对其进行分发。
+< article> 元素的潜在来源：
+论坛帖子
+报纸文章
+博客条目
+用户评论</i>
+section  < section > 标签定义文档中的节（section、区段）。比如章节、页眉、页脚或文档中的其他部分。
+
+<script>
+	 window.onload = function(){
+	 (function () {
+		var htm = document.getElementsByTagName('body')[0];
+		htm.innerHTML = htm.innerHTML.replace(/\n/g,"<br/>").replace(/ /g,'&nbsp;').replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;').replace(/<strong>/g,'----------------------------------------<br/><br/><strong>').replace(/`/g,' ');
+	 })();
+	 (function() {
+	 	var htm = document.getElementsByTagName('a');
+	 	for(var i=0;i<htm.length;i++){
+	 		htm[i].target = '_blank'
+	 		htm[i].href = htm[i].innerHTML
+	 	}
+	 })();
+	 (function() {
+	 	var str = document.getElementsByTagName('strong');
+	 	var mao = document.getElementsByTagName('ul')[0];
+	 	var links = [];
+	 	for(var i=0;i<str.length;i++) {
+	 		var strs = str[i].innerHTML.replace(/&nbsp;/g,'--');
+	 		console.log(strs)
+	 		str[i].id = strs;
+	 		links.push( '<li><a href="#' +strs+ '">'+strs+'</a></li>' );
+	 	}
+	 	links.push('<a class="c" href="#"><u></u></a>'  )
+	 	mao.innerHTML=links/*.reverse()*/.join(' ')
+	 })()
+	}	
+</script>
+</body>
+</html>
